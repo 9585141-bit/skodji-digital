@@ -261,3 +261,78 @@ Por isso, estes campos não são preenchidos com dados de terceiros: devem repre
 - Walkthrough público de Linux Server Forensics usado apenas como referência metodológica: https://medium.com/@Retr07/tryhackme-linux-server-forensics-walkthrough-by-retr0-99853c81a580
 
 **Prática documentada em 25/09/2026.**
+
+
+## 19. Resultados forenses da auditoria de autenticação
+
+Os resultados encontrados para o conjunto de logs analisado foram:
+
+| Critério de entrega | Resultado |
+|---|---|
+| **IP do atacante** | `65.2.161.68` |
+| **Utilizador afetado / comprometido** | `root` |
+| **Timestamp do comprometimento / início da sessão interativa** | **2024-03-06 06:32:45 UTC** |
+
+### Evidências relevantes
+
+Tentativas de autenticação falhadas foram observadas a partir de `65.2.161.68`, incluindo entradas para utilizadores inválidos. Em seguida aparece uma autenticação aceite para `root` a partir do mesmo IP.
+
+Excertos relevantes:
+
+```text
+Mar 6 06:31:33 ... Failed password for invalid user admin from 65.2.161.68
+Mar 6 06:32:44 ... Accepted password for root from 65.2.161.68
+Mar 6 06:32:44 ... pam_unix(sshd:session): session opened for user root
+```
+
+O `auth.log` regista a autenticação aceite às **06:32:44**, enquanto o artefacto `wtmp` regista o início da sessão terminal às **06:32:45**. Por isso, para o critério de **hora exata do comprometimento / login interativo**, fica registado **2024-03-06 06:32:45 UTC**. citeturn505919search0turn505919search1
+
+Também foi registado posteriormente um login do utilizador `cyberjunkie` pelo mesmo IP, já depois da intrusão inicial, reforçando a necessidade de reconstruir a sequência dos eventos em vez de tratar todas as autenticações aceites como equivalentes. citeturn505919search1
+
+## 20. Linha temporal do ataque
+
+```text
+06:31:33
+   ↓
+Múltiplas tentativas de password falhadas
+a partir de 65.2.161.68
+   ↓
+06:31:40
+   ↓
+Autenticação aceite para root
+(associada à fase de brute force)
+   ↓
+06:32:44
+   ↓
+Nova autenticação aceite para root
+a partir de 65.2.161.68
+   ↓
+06:32:45
+   ↓
+Sessão terminal interativa de root
+registada no wtmp
+   ↓
+Posteriormente
+   ↓
+Novo acesso do mesmo IP como cyberjunkie
+```
+
+A distinção entre **hora da autenticação** e **hora do início da sessão interativa** é importante numa análise forense: `auth.log` mostra o evento de autenticação, enquanto `wtmp` permite confirmar a sessão de terminal. citeturn505919search1turn505919search2
+
+## 21. Checklist de submissão — Portfólio GitHub
+
+- [x] Documentar o IP do atacante
+- [x] Documentar o timestamp exato
+- [x] Documentar o utilizador afetado
+- [x] Documentar a linha temporal: falhas → sucesso → sessão
+- [x] Incluir excertos relevantes de `auth.log`
+- [x] Registar a metodologia de análise
+- [x] Atualizar `sessao-02/README.md`
+- [x] Fazer commit para o repositório do portfólio
+
+## 22. Fontes de referência
+
+- TryHackMe — Linux Server Forensics: https://tryhackme.com/room/linuxserverforensics
+- TryHackMe — Intro to Logs: https://tryhackme.com/room/introtologs
+- Referência pública da análise dos eventos `auth.log`/ `wtmp`: https://www.sec-savvy.com/writeups/brutus/
+- Referência pública adicional: https://github.com/h0ny/HackTheBox-Sherlocks-Writeups/blob/main/digital-forensics-and-incident-response/dfir/brutus.md
