@@ -182,7 +182,7 @@ A prática teve como objetivo atuar como analista forense para determinar a orig
 - TryHackMe — **Intro to Logs**
 - TryHackMe — **Linux Server Forensics**
 
-A documentação oficial do TryHackMe descreve logs como registos históricos de atividades do sistema e apresenta `auth.log` como fonte importante para analisar autenticações, incluindo tentativas falhadas e acessos bem-sucedidos. cite removida: referências web são mantidas nesta documentação localmente apenas como links.
+A documentação oficial do TryHackMe descreve os logs como registos históricos de atividades e apresenta `auth.log` como uma fonte importante para analisar autenticações, incluindo tentativas falhadas e acessos bem-sucedidos.
 
 ## 14. Procedimento de análise
 
