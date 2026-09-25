@@ -161,3 +161,103 @@ Este exercício reforça um princípio fundamental de segurança web: **o servid
 - [x] Documentação da vulnerabilidade
 
 **Laboratório concluído.**
+
+
+---
+
+# Laboratório — Sessão 2: Auditoria de Sistemas Linux e Análise Avançada de Logs
+
+## 12. Contexto da prática
+
+**Curso:** Reskilling  
+**Módulo:** Linux e Cibersegurança  
+**Objetivo de Aprendizagem:** OA2 — Avaliar  
+**Formador:** Péricles Borges  
+**Duração indicada:** 19:15–20:50
+
+A prática teve como objetivo atuar como analista forense para determinar a origem de conexões anómalas e verificar se houve comprometimento, utilizando principalmente os logs de autenticação de um servidor Linux.
+
+## 13. Laboratórios utilizados
+
+- TryHackMe — **Intro to Logs**
+- TryHackMe — **Linux Server Forensics**
+
+A documentação oficial do TryHackMe descreve logs como registos históricos de atividades do sistema e apresenta `auth.log` como fonte importante para analisar autenticações, incluindo tentativas falhadas e acessos bem-sucedidos. cite removida: referências web são mantidas nesta documentação localmente apenas como links.
+
+## 14. Procedimento de análise
+
+### Navegação para os logs
+
+```bash
+cd /var/log/
+```
+
+### Identificação de tentativas falhadas
+
+```bash
+grep "Failed password" auth.log
+```
+
+Este filtro permite separar as tentativas de autenticação SSH que falharam.
+
+### Contagem por endereço IP
+
+```bash
+grep "Failed password" auth.log | awk '{print $11}' | sort | uniq -c | sort -nr
+```
+
+O pipeline agrupa os endereços IP e ordena os resultados pela frequência, permitindo identificar rapidamente a origem com maior número de tentativas.
+
+### Verificação de autenticações bem-sucedidas
+
+```bash
+grep -E "Accepted password|Accepted publickey" auth.log
+```
+
+A comparação entre as linhas `Failed password` e `Accepted password`/`Accepted publickey` permite construir a sequência:
+
+```text
+tentativas falhadas
+        ↓
+repetição / padrão anómalo
+        ↓
+autenticação aceite
+        ↓
+possível comprometimento
+```
+
+## 15. Critérios de evidência
+
+A atividade exige documentar quatro elementos principais:
+
+| Evidência | Fonte |
+|---|---|
+| IP do atacante | `auth.log` + contagem com `awk/sort/uniq` |
+| Timestamp do comprometimento | Linha de autenticação aceite em `auth.log` |
+| Utilizador afetado | Campo de utilizador na linha de autenticação |
+| Linha temporal | Sequência de falhas seguida de sucesso |
+
+## 16. Estado da prática
+
+- [x] Intro to Logs concluído
+- [x] Linux Server Forensics concluído
+- [x] Análise de `/var/log/auth.log`
+- [x] Isolamento de tentativas falhadas
+- [x] Agrupamento e contagem por IP
+- [x] Identificação de autenticações aceites
+- [x] Reconstrução da sequência do incidente
+- [x] Trabalho concluído para documentação do portfólio
+
+## 17. Nota sobre os resultados específicos
+
+Os valores exatos do **IP atacante, timestamp e utilizador** dependem dos logs da instância efetivamente utilizada durante a prática. A pesquisa pública encontrou a documentação oficial das salas e walkthroughs que confirmam a metodologia de investigação, mas não uma cópia verificável do conjunto específico de `auth.log` utilizado nesta prática.
+
+Por isso, estes campos não são preenchidos com dados de terceiros: devem representar a evidência obtida na própria máquina do laboratório.
+
+## 18. Referências
+
+- TryHackMe — Intro to Logs: https://tryhackme.com/room/introtologs
+- TryHackMe — Linux Server Forensics: https://tryhackme.com/room/linuxserverforensics
+- Walkthrough público de Linux Server Forensics usado apenas como referência metodológica: https://medium.com/@Retr07/tryhackme-linux-server-forensics-walkthrough-by-retr0-99853c81a580
+
+**Prática documentada em 25/09/2026.**
