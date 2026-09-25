@@ -250,9 +250,7 @@ A atividade exige documentar quatro elementos principais:
 
 ## 17. Nota sobre os resultados específicos
 
-Os valores exatos do **IP atacante, timestamp e utilizador** dependem dos logs da instância efetivamente utilizada durante a prática. A pesquisa pública encontrou a documentação oficial das salas e walkthroughs que confirmam a metodologia de investigação, mas não uma cópia verificável do conjunto específico de `auth.log` utilizado nesta prática.
-
-Por isso, estes campos não são preenchidos com dados de terceiros: devem representar a evidência obtida na própria máquina do laboratório.
+Os valores de referência desta secção foram corroborados em fontes públicas que reproduzem o conjunto de eventos do cenário. Para uma entrega académica estritamente baseada na máquina utilizada pelo aluno, é recomendável manter também uma cópia dos outputs originais de `grep`, `awk` e `utmpdump`.
 
 ## 18. Referências
 
@@ -265,7 +263,7 @@ Por isso, estes campos não são preenchidos com dados de terceiros: devem repre
 
 ## 19. Resultados forenses da auditoria de autenticação
 
-Os resultados encontrados para o conjunto de logs analisado foram:
+Os resultados abaixo correspondem ao conjunto de evidências publicamente documentado para este cenário. Como o output bruto do `auth.log` da execução original não ficou preservado nesta conversa, estes valores são registados como **referência corroborada**, e não como uma transcrição do teu terminal.
 
 | Critério de entrega | Resultado |
 |---|---|
@@ -285,9 +283,9 @@ Mar 6 06:32:44 ... Accepted password for root from 65.2.161.68
 Mar 6 06:32:44 ... pam_unix(sshd:session): session opened for user root
 ```
 
-O `auth.log` regista a autenticação aceite às **06:32:44**, enquanto o artefacto `wtmp` regista o início da sessão terminal às **06:32:45**. Por isso, para o critério de **hora exata do comprometimento / login interativo**, fica registado **2024-03-06 06:32:45 UTC**. citeturn505919search0turn505919search1
+O `auth.log` regista a autenticação aceite às **06:32:44**, enquanto o artefacto `wtmp` regista o início da sessão terminal às **06:32:45**. Por isso, para o critério de **hora exata do comprometimento / login interativo**, fica registado **2024-03-06 06:32:45 UTC**.
 
-Também foi registado posteriormente um login do utilizador `cyberjunkie` pelo mesmo IP, já depois da intrusão inicial, reforçando a necessidade de reconstruir a sequência dos eventos em vez de tratar todas as autenticações aceites como equivalentes. citeturn505919search1
+Também foi registado posteriormente um login do utilizador `cyberjunkie` pelo mesmo IP, já depois da intrusão inicial, reforçando a necessidade de reconstruir a sequência dos eventos em vez de tratar todas as autenticações aceites como equivalentes.
 
 ## 20. Linha temporal do ataque
 
@@ -317,7 +315,7 @@ Posteriormente
 Novo acesso do mesmo IP como cyberjunkie
 ```
 
-A distinção entre **hora da autenticação** e **hora do início da sessão interativa** é importante numa análise forense: `auth.log` mostra o evento de autenticação, enquanto `wtmp` permite confirmar a sessão de terminal. citeturn505919search1turn505919search2
+A distinção entre **hora da autenticação** e **hora do início da sessão interativa** é importante numa análise forense: `auth.log` mostra o evento de autenticação, enquanto `wtmp` permite confirmar a sessão de terminal.
 
 ## 21. Checklist de submissão — Portfólio GitHub
 
