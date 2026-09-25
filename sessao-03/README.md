@@ -9,6 +9,7 @@ Concluir a sala do TryHackMe **Linux Forensics** e investigar um mecanismo de pe
 - Plataforma: TryHackMe
 - Sala: **Linux Forensics**
 - Estado: **Concluída**
+- Data da conclusão: **25/09/2026**
 - Tarefas concluídas: **11**
 - Pontos ganhos: **96**
 - Streak/Onda: **3**
@@ -44,7 +45,7 @@ cat /etc/systemd/system/badr.service
 
 O serviço executava `/etc/badr/badr` e tinha um `ExecStartPost` que removia vários ficheiros relacionados com o próprio serviço.
 
-Também foi verificado que `/var/log/badr.log` já não existia e que `/etc/badr` estava vazio.
+Também foi verificado que `/var/log/badr.log` não existia e que `/etc/badr` estava vazio.
 
 ## 6. Processo com executável apagado
 
@@ -138,13 +139,10 @@ O script também continha uma função que repetia mensagens através de `wall` 
 systemctl status IpManager
 ```
 
-O serviço apareceu como:
+O serviço apareceu como ativo e habilitado, executando:
 
 ```text
-Loaded: loaded (/etc/systemd/system/IpManager.service; enabled; vendor preset: enabled)
-Active: active (running)
-Main PID: ... (bash)
-/bin/bash /etc/network/ZGtsam5hZG1ua5Fu.sh
+/bin/bash /etc/network/ZGtsam5hZG1ua2Fu.sh
 ```
 
 Isso confirmou a persistência via systemd e a execução contínua do script.
