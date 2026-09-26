@@ -120,3 +120,8 @@ Posteriormente, foi possível adquirir um **computador próprio**, no qual foi p
 Com esse novo ambiente, os conteúdos foram revistos de forma prática e os trabalhos que estavam pendentes foram retomados, permitindo consolidar os conceitos estudados nas aulas e organizar os resultados no portfólio.
 
 Esta documentação procura, assim, registar não apenas os resultados finais, mas também a evolução do processo de aprendizagem e a transição de um estudo limitado ao telemóvel para um ambiente técnico mais completo e adequado à formação.
+
+
+---
+
+**Autor / Formando:** Marcos dos Santos
