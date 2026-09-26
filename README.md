@@ -99,6 +99,23 @@ skodji-digital/
 📘 **[Abrir o trabalho da Sessão 04](sessao-04/README.md)**
 
 ---
+## Sessão 05 — Análise de Vulnerabilidades em Linux e Ferramentas de Auditoria
+
+**Tema:** Auditoria automatizada de segurança com Lynis.
+
+**Foco:**
+- execução do Lynis;
+- Hardening Score;
+- Warnings;
+- Suggestions;
+- seleção de duas vulnerabilidades/fragilidades críticas;
+- proposta de medidas corretivas.
+
+**Estado:** 🟡 Estrutura criada; resultados práticos a integrar
+
+📘 **[Abrir o trabalho da Sessão 05](sessao-05/README.md)**
+
+---
 ## Estado do percurso
 
 | Sessão | Área principal | Estado |
@@ -107,6 +124,7 @@ skodji-digital/
 | 02 | Web, APIs, autenticação e logs | ✅ Concluída |
 | 03 | Hardening de redes e firewalls | ✅ Concluída |
 | 04 | SSH seguro e acessos remotos | 🟡 Em documentação |
+| 05 | Auditoria Linux e Lynis | 🟡 Em documentação |
 
 ## Linha de aprendizagem
 
@@ -145,4 +163,4 @@ A documentação pode ser atualizada à medida que novas evidências, outputs, e
 
 ---
 
-**Percurso documentado até à Sessão 04.**
+**Percurso documentado até à Sessão 05.**
