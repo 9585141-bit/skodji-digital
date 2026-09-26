@@ -334,3 +334,10 @@ A distinção entre **hora da autenticação** e **hora do início da sessão in
 - TryHackMe — Intro to Logs: https://tryhackme.com/room/introtologs
 - Referência pública da análise dos eventos `auth.log`/ `wtmp`: https://www.sec-savvy.com/writeups/brutus/
 - Referência pública adicional: https://github.com/h0ny/HackTheBox-Sherlocks-Writeups/blob/main/digital-forensics-and-incident-response/dfir/brutus.md
+
+
+## 23. Nota sobre o ambiente de estudo
+
+O computador pessoal **BITYJR** também foi utilizado como laboratório complementar em vários momentos da formação. Essa abordagem permitiu continuar a praticar comandos, análise e documentação quando o acesso a determinadas máquinas gratuitas do TryHackMe ficava condicionado por períodos de espera de até **24 horas**.
+
+A utilização do computador pessoal teve como finalidade exclusivamente pedagógica: reproduzir conceitos, testar comandos em ambiente controlado e preparar a análise antes ou depois da utilização do laboratório remoto.
