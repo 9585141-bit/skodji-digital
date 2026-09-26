@@ -61,20 +61,20 @@ skodji-digital/
 
 ---
 
-## Sessão 03 — Forensics e Persistência via systemd
+## Sessão 03 — Hardening de Redes Linux e Firewalls
 
-**Tema:** Análise Forense de Servidores Linux e Persistência via systemd.
+**Tema:** Hardening de Redes Linux e Configuração de Firewalls.
 
 **Foco:**
-- enumeração de serviços;
-- investigação de serviços suspeitos;
-- análise de processos;
-- identificação de executáveis apagados;
-- investigação de unidades systemd;
-- análise de scripts executados por serviços;
-- construção da cadeia forense.
+- configuração de políticas UFW;
+- definição de regras de entrada e saída;
+- permissão controlada de SSH;
+- bloqueio de IP com iptables;
+- verificação das regras ativas;
+- persistência das regras do firewall;
+- explicação da política defensiva.
 
-**Principais práticas:** `systemctl` · `readlink` · `/proc/<PID>/exe` · análise de unidades e scripts
+**Principais práticas:** `ufw` · `iptables` · `iptables-save`
 
 **Estado:** ✅ Concluída
 
@@ -88,7 +88,7 @@ skodji-digital/
 |---|---|---|
 | 01 | Linux, rede e Nmap | ✅ Concluída |
 | 02 | Web, APIs, autenticação e logs | ✅ Concluída |
-| 03 | Forensics e systemd | ✅ Concluída |
+| 03 | Hardening de redes e firewalls | ✅ Concluída |
 
 ## Linha de aprendizagem
 
@@ -100,7 +100,7 @@ Sessão 02
 Web + API + Autenticação + Logs
         ↓
 Sessão 03
-Forensics + systemd + Persistência
+Hardening + UFW + iptables
 ```
 
 ## Objetivo do portfólio
