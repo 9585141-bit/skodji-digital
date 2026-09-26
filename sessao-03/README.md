@@ -243,3 +243,8 @@ As mensagens falsas eram parte do comportamento do laboratório. A evidência de
 Durante a formação, o computador pessoal **BITYJR** foi utilizado como laboratório complementar para continuar os estudos quando o TryHackMe apresentava períodos de espera de até **24 horas** em determinados laboratórios gratuitos.
 
 A máquina local foi utilizada para praticar comandos Linux, analisar conceitos de systemd e forensics e organizar a documentação. As evidências específicas da sala TryHackMe permanecem identificadas como resultados do laboratório remoto.
+
+
+---
+
+**Autor / Formando:** Marcos dos Santos
