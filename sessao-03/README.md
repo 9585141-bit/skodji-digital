@@ -78,10 +78,85 @@ sudo iptables -L -v
 - [x] Criar/atualizar `sessao-03/README.md` com a ficha e os resultados documentados
 - [x] Executar anteriormente `sudo ufw status verbose`
 - [x] Executar anteriormente `sudo iptables -L -v`
-- [x] Realizar a política defensiva solicitada no laboratório
+- [x] Recuperar e registar os outputs reais dos dois comandos
+- [ ] Confirmar/documentar a aplicação final da política de hardening solicitada
 - [x] Fazer commit e push para o repositório do portfólio
 
-> **Estado da evidência:** a execução do laboratório já foi realizada anteriormente. Os outputs completos dos dois comandos foram procurados no histórico disponível do Git e nos ficheiros acessíveis, mas não foram localizados nesta recuperação. Eles devem ser reinseridos a partir do registo original quando este estiver disponível. Os comandos e procedimentos não são repetidos nem resultados são inventados.
+> **Estado da evidência:** os outputs reais foram agora recuperados e inseridos abaixo. Eles mostram o estado observado no momento da verificação: UFW inativo e políticas `INPUT`/`OUTPUT` do iptables em `ACCEPT`. A aplicação final da política defensiva permanece separada dessa evidência e não é declarada como concluída sem o respetivo output.
+
+## 6. Outputs reais recolhidos no laboratório
+
+### 6.1 Estado do UFW
+
+Comando executado:
+
+```bash
+sudo ufw status verbose
+```
+
+Output real:
+
+```text
+Status: inactive
+```
+
+**Interpretação:** no momento desta verificação, o UFW estava **inativo**. Portanto, este output regista o estado observado antes da ativação/configuração de uma política UFW.
+
+### 6.2 Estado atual do iptables
+
+Comando executado:
+
+```bash
+sudo iptables -L -v
+```
+
+Output real:
+
+```text
+Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+
+Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+    0     0 DOCKER-USER  all  --  any    any     anywhere             anywhere            
+    0     0 DOCKER-FORWARD  all  --  any    any     anywhere             anywhere            
+
+Chain OUTPUT (policy ACCEPT 0 packets, 0 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+
+Chain DOCKER (1 references)
+ pkts bytes target     prot opt in     out     source               destination         
+    0     0 DROP       all  --  !docker0 docker0  anywhere             anywhere            
+
+Chain DOCKER-BRIDGE (1 references)
+ pkts bytes target     prot opt in     out     source               destination         
+    0     0 DOCKER     all  --  any    docker0  anywhere             anywhere            
+
+Chain DOCKER-CT (1 references)
+ pkts bytes target     prot opt in     out     source               destination         
+    0     0 ACCEPT     all  --  any    docker0  anywhere             anywhere             ctstate RELATED,ESTABLISHED
+
+Chain DOCKER-FORWARD (1 references)
+ pkts bytes target     prot opt in     out     source               destination         
+    0     0 DOCKER-INTERNAL  all  --  any    any     anywhere             anywhere            
+    0     0 DOCKER-BRIDGE  all  --  any    any     anywhere             anywhere            
+    0     0 ACCEPT     all  --  docker0 any     anywhere             anywhere
+
+Chain DOCKER-INTERNAL (1 references)
+ pkts bytes target     prot opt in     out     source               destination         
+
+Chain DOCKER-USER (1 references)
+ pkts bytes target     prot opt in     out     source               destination         
+```
+
+**Interpretação:** a verificação mostra que a chain `INPUT` estava com política padrão `ACCEPT`, assim como `OUTPUT`. Também existiam chains relacionadas com Docker, incluindo `DOCKER-USER`, `DOCKER-FORWARD`, `DOCKER-BRIDGE`, `DOCKER-CT` e `DOCKER-INTERNAL`.
+
+### 6.3 Estado documental da tarefa
+
+Os outputs reais exigidos pelo enunciado já foram recuperados e incluídos no portfólio.
+
+**Importante:** estes outputs comprovam o **estado observado no momento da verificação**, mas não comprovam, por si só, a aplicação posterior das regras de hardening solicitadas. A documentação mantém essa distinção para preservar a precisão técnica.
+
 
 > **Nota de histórico:** a prática foi realizada anteriormente. Nesta versão, os procedimentos e a execução já realizada ficam registados; os outputs completos ainda precisam apenas de ser recuperados do registo original para cumprir a evidência documental.
 
