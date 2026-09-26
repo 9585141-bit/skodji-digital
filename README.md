@@ -116,6 +116,22 @@ skodji-digital/
 📘 **[Abrir o trabalho da Sessão 05](sessao-05/README.md)**
 
 ---
+## Sessão 06 — Desafio Prático Integrador e Avaliação
+
+**Tema:** Mini-CTF Defensivo Linux e integração dos conhecimentos das Sessões 1 a 5.
+
+**Foco:**
+- resposta a incidente em ambiente de laboratório;
+- identificação e contenção de problemas;
+- correção de configurações inseguras;
+- validação das medidas aplicadas;
+- relatório técnico final.
+
+**Estado:** 🟡 Estrutura criada; enunciado detalhado e evidências a integrar
+
+📘 **[Abrir o trabalho da Sessão 06](sessao-06/README.md)**
+
+---
 ## Estado do percurso
 
 | Sessão | Área principal | Estado |
@@ -125,6 +141,7 @@ skodji-digital/
 | 03 | Hardening de redes e firewalls | ✅ Concluída |
 | 04 | SSH seguro e acessos remotos | 🟡 Em documentação |
 | 05 | Auditoria Linux e Lynis | 🟡 Em documentação |
+| 06 | Desafio integrador e avaliação | 🟡 Em documentação |
 
 ## Linha de aprendizagem
 
@@ -163,4 +180,4 @@ A documentação pode ser atualizada à medida que novas evidências, outputs, e
 
 ---
 
-**Percurso documentado até à Sessão 05.**
+**Percurso documentado até à Sessão 06.**
