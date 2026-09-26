@@ -1,91 +1,249 @@
-# Sessão 6 — Desafio Prático Integrador (Mini-CTF Defensivo Linux) e Avaliação
+# Laboratório — Sessão 6 (Desafio MiniCTF)
+## Desafio Prático Integrador — Mini-CTF Defensivo Linux
 
+**Curso:** Reskilling  
+**Módulo:** Linux e Cibersegurança  
 **Objetivo de Aprendizagem:** Integração de OA1 a OA5 (foco em Criar)  
-**Duração:** 4 horas  
-**Ambiente prático:** TryHackMe
+**Duração da prática:** 19:15 – 20:50 (Hackathon Defensivo — Partes 1 e 2)  
+**Formador:** Péricles Borges  
+**Peso na avaliação:** 65% da nota final (Portfólio GitHub)
 
-## 1. Contexto
+## 1. Cenário
 
-Esta é a sessão integradora do percurso. O servidor fictício da empresa foi comprometido e apresenta configurações inseguras, contas sem password e portas abertas desnecessariamente.
+O servidor Ubuntu da empresa fictícia **Linux Agency** apresenta indícios de atividade suspeita e configurações severamente inseguras.
 
-A missão é atuar como analista de resposta a incidentes, identificando e contendo os danos, aplicando as correções necessárias e documentando toda a intervenção num relatório técnico completo.
+A missão é auditar, conter os danos, aplicar as correções e documentar toda a intervenção, como num cenário controlado de resposta a um incidente.
 
-## 2. Objetivo da sessão
+## 2. Ambiente Virtual
 
-Integrar os conhecimentos desenvolvidos ao longo das Sessões 1 a 5, passando da análise e identificação para a correção, validação e documentação de um incidente de segurança num ambiente de laboratório.
+- **TryHackMe — Linux Agency** (gratuito): https://tryhackme.com/room/linuxagency
+- **TryHackMe — Linux Incident Surface** (gratuito, alternativa): https://tryhackme.com/room/linuxincidentsurface
 
-## 3. Competências integradas
+Uma das duas salas deve ser utilizada como base do desafio, de acordo com a orientação do formador.
 
-- **OA1 — Analisar:** identificação de portas, serviços e exposição;
-- **OA2 — Avaliar:** análise de evidências, autenticação e logs;
-- **OA3 — Aplicar:** hardening e configuração defensiva;
-- **OA4 — Aplicar:** proteção de acessos remotos SSH;
-- **OA5 — Criar:** produção de medidas corretivas e documentação técnica.
+## 3. Metodologia de Resposta — Roteiro de Ações Exigidas
 
-## 4. Ambiente prático
+### Fase 1 — Identificação e Triagem
 
-- **TryHackMe**
+#### 3.1 Análise de rede e portas
 
-## 5. Desafio integrador
+Identificar quais os portos e serviços ativos que estão expostos desnecessariamente.
 
-O laboratório final deverá ser tratado como um cenário controlado de resposta a incidentes.
-
-Fluxo de trabalho:
-
-```text
-identificar
-   ↓
-recolher evidências
-   ↓
-avaliar impacto
-   ↓
-conter
-   ↓
-corrigir
-   ↓
-validar
-   ↓
-documentar
+```bash
+ss -tuln
+nmap -sV localhost
 ```
 
-## 6. Evidências e resultados
+#### 3.2 Auditoria de contas
 
-> O detalhe das tarefas, comandos, critérios específicos e respostas do Laboratório Final deve ser incorporado a partir do **Enunciado Lab 6**, evitando inventar instruções ou resultados que não estejam no material oficial.
+Procurar utilizadores com permissões excessivas, contas sem palavra-passe associada ou chaves públicas suspeitas em `authorized_keys`.
 
-### 6.1 Evidências do laboratório
+```bash
+sudo cat /etc/shadow | awk -F: '($2==""){print $1}'
+cat ~/.ssh/authorized_keys
+```
 
-- [ ] Identificar o alvo e o estado inicial
-- [ ] Registar evidências relevantes
-- [ ] Documentar as vulnerabilidades encontradas
-- [ ] Registar as medidas de contenção
-- [ ] Registar as correções aplicadas
-- [ ] Validar o estado final
-- [ ] Guardar outputs/capturas relevantes
+Os resultados devem ser analisados e documentados como evidências do estado inicial.
 
-### 6.2 Relatório técnico
+### Fase 2 — Contenção
 
-O relatório final deverá, sempre que o enunciado detalhado assim exigir, apresentar:
+Ativar a firewall UFW e bloquear as portas de entrada que não sejam estritamente necessárias para o negócio.
 
-- situação inicial;
-- evidências;
-- análise;
-- ações tomadas;
-- correções aplicadas;
-- validação;
-- conclusão.
+```bash
+sudo ufw default deny incoming
+sudo ufw allow 22/tcp
+sudo ufw enable
+```
 
-## 7. Checklist de submissão
+Registar as regras efetivamente aplicadas e guardar evidência do estado da firewall.
 
-- [ ] Criar/atualizar `sessao-06/README.md`
-- [ ] Incorporar o enunciado detalhado do Lab 6
-- [ ] Registar as tarefas e resultados reais
-- [ ] Incluir evidências relevantes
-- [ ] Documentar a intervenção de forma cronológica
-- [ ] Fazer commit e push para o GitHub
+### Fase 3 — Enrijecimento / Remediação
 
-## 8. Materiais da formação
+Corrigir a configuração SSH de acordo com as boas práticas:
 
-### Navegação
+- desativar login root;
+- bloquear autenticação por password;
+- migrar para chaves criptográficas.
+
+Aplicar também os patches de segurança relevantes identificados durante a triagem.
+
+### Validação
+
+Executar o Lynis para verificar a melhoria da postura de segurança global do host:
+
+```bash
+sudo lynis audit system
+```
+
+Registar o resultado final e o score pós-hardening.
+
+## 4. Critérios de Entrega Obrigatória
+
+O trabalho final deve ser um **Relatório Técnico de Auditoria e Mitigação em Markdown (`README.md`)**, estruturado pelas fases:
+
+```text
+Identificação
+      ↓
+Contenção
+      ↓
+Remediação
+      ↓
+Validação
+```
+
+Também devem ser incluídos:
+
+- ficheiros de configuração corrigidos, incluindo cópia limpa do `sshd_config`;
+- regras UFW exportadas;
+- publicação do ecossistema completo de evidências no portfólio individual GitHub para avaliação formal do formador.
+
+## 5. Checklist de Submissão — Portfólio GitHub
+
+- [ ] Criar/atualizar `sessao-06/README.md` com o Relatório Técnico completo
+- [ ] Documentar Identificação → Contenção → Remediação → Validação
+- [ ] Incluir `sessao-06/sshd_config` (cópia limpa, sem dados sensíveis)
+- [ ] Incluir `sessao-06/ufw-rules.txt` (output de `ufw status verbose`)
+- [ ] Incluir excerto do relatório Lynis final (score pós-hardening)
+- [ ] Confirmar que o repositório está público ou partilhado com o formador
+- [ ] Fazer commit e push final antes do prazo de submissão
+
+> **Nota de evidência:** resultados, scores, utilizadores, portas, regras e outputs devem corresponder à execução real do laboratório. Não serão inventados.
+
+---
+
+# Resultados Práticos
+
+## 6. Fase 1 — Identificação e Triagem
+
+### 6.1 Rede e portas
+
+#### `ss -tuln`
+
+```text
+A preencher com o output real.
+```
+
+#### `nmap -sV localhost`
+
+```text
+A preencher com o output real.
+```
+
+### 6.2 Auditoria de contas
+
+#### Contas sem password
+
+```text
+A preencher com o output real do comando de auditoria.
+```
+
+#### Chaves autorizadas
+
+```text
+A preencher com o conteúdo relevante de authorized_keys, removendo dados sensíveis quando necessário.
+```
+
+## 7. Fase 2 — Contenção
+
+### Estado da firewall
+
+Comandos principais:
+
+```bash
+sudo ufw default deny incoming
+sudo ufw allow 22/tcp
+sudo ufw enable
+sudo ufw status verbose
+```
+
+### Evidência
+
+```text
+A preencher com o output real de ufw status verbose.
+```
+
+## 8. Fase 3 — Enrijecimento / Remediação
+
+### Configuração SSH
+
+Registar as linhas efetivamente modificadas no `sshd_config`.
+
+```text
+A preencher com a configuração efetivamente aplicada.
+```
+
+### Patches
+
+**Medidas aplicadas:** a preencher com os patches/correções efetivamente realizados.
+
+## 9. Validação com Lynis
+
+```bash
+sudo lynis audit system
+```
+
+### Score pós-hardening
+
+**Hardening Score final:** a preencher com o resultado real.
+
+### Evidência Lynis
+
+```text
+A preencher com o excerto real do relatório final.
+```
+
+## 10. Ficheiros obrigatórios
+
+### `sessao-06/sshd_config`
+
+Deve conter uma cópia limpa da configuração utilizada, sem chaves privadas, passwords ou outros dados sensíveis.
+
+**Estado:** ⏳ A aguardar configuração real.
+
+### `sessao-06/ufw-rules.txt`
+
+Deve conter o output real de:
+
+```bash
+sudo ufw status verbose
+```
+
+**Estado:** ⏳ A aguardar output real.
+
+## 11. Relatório Técnico Final
+
+O relatório deverá ligar cada evidência à respetiva ação:
+
+```text
+evidência encontrada
+       ↓
+problema identificado
+       ↓
+risco
+       ↓
+medida de contenção
+       ↓
+correção
+       ↓
+validação
+       ↓
+estado final
+```
+
+## 12. Estado da Sessão
+
+**Sessão 6 — Enunciado oficial integrado. Estrutura do relatório criada; resultados e ficheiros de evidência aguardam integração das execuções reais.**
+
+## 13. Segurança do portfólio
+
+- Nunca publicar chaves privadas.
+- Remover passwords, tokens e outros dados sensíveis dos ficheiros publicados.
+- Utilizar apenas dados necessários para comprovar o trabalho.
+- Manter as evidências identificadas como laboratório controlado.
+
+---
+
+## 14. Materiais da formação
 
 **Sessão 5:** https://elearning.skodjidigital.cv/course/section.php?id=350
 
@@ -104,10 +262,6 @@ https://elearning.skodjidigital.cv/course/section.php?id=399
 **Enunciado Lab 6:** https://elearning.skodjidigital.cv/mod/resource/view.php?id=910
 
 **Submissão:** https://elearning.skodjidigital.cv/mod/assign/view.php?id=911
-
-## 9. Estado da sessão
-
-**Sessão 6 — Estrutura documental criada. A etapa final aguarda a integração do Enunciado Lab 6 e das evidências reais da execução.**
 
 ---
 
