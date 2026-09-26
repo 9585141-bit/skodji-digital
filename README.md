@@ -109,3 +109,14 @@ Registar as práticas do percurso de forma reproduzível, mantendo:
 Durante o percurso, o computador pessoal **BITYJR** foi utilizado várias vezes como laboratório complementar para executar comandos, testar conceitos e continuar a documentação prática. Isto foi especialmente necessário em períodos em que o ambiente gratuito do TryHackMe impunha um período de espera de até **24 horas** para voltar a utilizar determinadas máquinas/laboratórios.
 
 Assim, o portfólio distingue entre resultados recolhidos diretamente no TryHackMe e exercícios/práticas realizados no computador pessoal, mantendo o objetivo de continuar a aprendizagem mesmo durante os períodos de espera da plataforma.
+
+
+## Nota sobre o percurso e a entrega dos trabalhos
+
+O atraso na entrega de alguns trabalhos esteve relacionado, principalmente, com a falta de um computador durante parte da formação. Nesse período, as aulas eram acompanhadas essencialmente através do **telemóvel**, o que por vezes criava limitações para executar comandos, trabalhar com ambientes Linux, utilizar ferramentas de laboratório e organizar a documentação técnica.
+
+Posteriormente, foi possível adquirir um **computador próprio**, no qual foi preparado um ambiente adequado para a prática e para o desenvolvimento do percurso da **Skodji Digital**, incluindo ferramentas e ambientes necessários para os exercícios de Linux, redes, cibersegurança e documentação em Git.
+
+Com esse novo ambiente, os conteúdos foram revistos de forma prática e os trabalhos que estavam pendentes foram retomados, permitindo consolidar os conceitos estudados nas aulas e organizar os resultados no portfólio.
+
+Esta documentação procura, assim, registar não apenas os resultados finais, mas também a evolução do processo de aprendizagem e a transição de um estudo limitado ao telemóvel para um ambiente técnico mais completo e adequado à formação.
