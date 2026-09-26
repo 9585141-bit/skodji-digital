@@ -1,98 +1,157 @@
-# Sessão 4 — Gestão Segura de Acessos Remotos SSH em Linux
+# Laboratório — Sessão 4
+## Gestão Segura de Acessos Remotos SSH em Linux
 
 **Curso:** Reskilling  
 **Módulo:** Linux e Cibersegurança  
-**Objetivo de Aprendizagem:** OA4 — Aplicar  
-**Duração:** 4 horas  
+**Objetivo de Aprendizagem:** OA4 · Aplicar  
+**Duração da prática guiada:** 19:15 – 20:50  
 **Formador:** Péricles Borges
 
-## 1. Enquadramento
+## 1. Contexto
 
-O SSH é um dos principais pontos de entrada para administração remota de servidores. Nesta sessão, o objetivo é reforçar a segurança do serviço SSH através de autenticação por chaves criptográficas, restrição do acesso root, desativação da autenticação por password e alteração da porta padrão.
+Proteger o canal de gestão remota do servidor Ubuntu, eliminando a autenticação tradicional por password e migrando para autenticação criptográfica.
 
-## 2. Ambiente prático
+## 2. Ambiente Virtual
 
-- **TryHackMe — Linux Strength Training**
-- **KillerCoda — Ubuntu Playground**: https://killercoda.com/playgrounds/scenario/ubuntu
+- **TryHackMe — Linux Strength Training** (gratuito): https://tryhackme.com/room/linuxstrengthtraining
+- **KillerCoda Ubuntu Playground:** https://killercoda.com/playgrounds/scenario/ubuntu
 
-## 3. Conteúdo da sessão
+## 3. Tarefas a Executar
 
-### 3.1 Geração de chaves Ed25519
+### 3.1 Criar utilizador de teste
 
-Gerar um par de chaves criptográficas utilizando o algoritmo **Ed25519**, mantendo a chave privada protegida e utilizando a chave pública para autenticação.
+Criar um novo utilizador de teste no sistema e configurar o ambiente para aceitar chaves.
 
-### 3.2 Distribuição segura da chave pública
-
-Instalar a chave pública no utilizador remoto através do mecanismo apropriado de chaves autorizadas, sem expor a chave privada.
-
-### 3.3 Reconfiguração do sshd
-
-A sessão trabalha a configuração do `/etc/ssh/sshd_config` para:
-
-- eliminar a autenticação por password;
-- bloquear o acesso root direto;
-- alterar a porta padrão do SSH.
-
-**Atenção:** um erro de sintaxe em `sshd_config` pode impedir novos acessos remotos. A configuração deve ser validada antes de reiniciar o serviço.
-
-### 3.4 Validação da configuração
+### 3.2 Gerar um par de chaves Ed25519
 
 ```bash
-sshd -t
+ssh-keygen -t ed25519
 ```
 
-O comando deve ser utilizado para verificar a sintaxe antes do reinício do serviço SSH.
+### 3.3 Transferir a chave pública
 
-## 4. Evidências exigidas
+```bash
+ssh-copy-id <utilizador>@<IP_DO_SERVIDOR>
+```
 
-No final da sessão, o portfólio GitHub deve apresentar:
+### 3.4 Editar a configuração do daemon SSH
 
-- as linhas modificadas do `sshd_config`;
-- evidência de login bem-sucedido através de chave SSH;
-- registo da validação da configuração com `sshd -t`;
-- explicação das alterações de segurança aplicadas.
+```bash
+sudo nano /etc/ssh/sshd_config
+```
 
-## 5. Checklist do laboratório
+### 3.5 Aplicar as alterações solicitadas
 
-- [ ] Gerar par de chaves Ed25519
-- [ ] Instalar/distribuir a chave pública
-- [ ] Configurar autenticação por chave
-- [ ] Desativar autenticação por password
-- [ ] Bloquear login root direto
-- [ ] Alterar a porta padrão do SSH
-- [ ] Validar `sshd_config` com `sshd -t`
-- [ ] Reiniciar/recarregar o serviço após validação
-- [ ] Confirmar login bem-sucedido via chave
-- [ ] Registar as linhas alteradas do `sshd_config`
+```text
+PermitRootLogin no
+PasswordAuthentication no
+Port 2222
+```
 
-## 6. Materiais da formação
+### 3.6 Validar a sintaxe antes de reiniciar
 
-**Curso Moodle:** R1-M5 — Linux e Cibersegurança — Ed1
+```bash
+sudo sshd -t
+```
+
+### 3.7 Reiniciar o serviço SSH
+
+```bash
+sudo systemctl restart sshd
+```
+
+### 3.8 Testar o novo acesso
+
+Num novo terminal, testar o acesso utilizando a chave privada e a nova porta:
+
+```bash
+ssh -i <caminho_da_chave> -p 2222 <utilizador>@<IP>
+```
+
+## 4. Nota de Segurança
+
+**Nunca fechar a sessão atual antes de confirmar que o novo acesso funciona.** Um erro de sintaxe ou configuração pode bloquear o acesso remoto ao servidor.
+
+## 5. Critérios de Entrega
+
+Documentar no portfólio:
+
+- cópia das linhas modificadas do `sshd_config`;
+- evidência de login bem-sucedido via chave criptográfica, através do output do terminal.
+
+## 6. Checklist de Submissão — Portfólio GitHub
+
+- [ ] Criar/atualizar `sessao-04/README.md` com os resultados documentados
+- [ ] Incluir cópia limpa do `sshd_config` corrigido
+- [ ] Incluir evidência de login bem-sucedido via chave
+- [ ] Garantir que não existem chaves privadas ou dados sensíveis
+- [ ] Fazer commit e push para o repositório do portfólio
+
+---
+
+# Resultados Práticos
+
+## 7. Evidência de configuração
+
+### Linhas modificadas no `sshd_config`
+
+```text
+PermitRootLogin no
+PasswordAuthentication no
+Port 2222
+```
+
+> As linhas acima correspondem à configuração solicitada pelo enunciado. A versão final deverá refletir o conteúdo efetivamente aplicado no laboratório.
+
+## 8. Validação da configuração
+
+### Comando
+
+```bash
+sudo sshd -t
+```
+
+**Resultado real:** a preencher com o output/registo obtido durante a execução.
+
+## 9. Login via chave criptográfica
+
+### Comando
+
+```bash
+ssh -i <caminho_da_chave> -p 2222 <utilizador>@<IP>
+```
+
+**Evidência real:** a preencher com o output ou captura do login bem-sucedido.
+
+> **Segurança:** nunca colocar no GitHub a chave privada, conteúdo de ficheiros privados ou credenciais. A evidência deve demonstrar apenas o necessário para comprovar o acesso.
+
+## 10. Estado da sessão
+
+**Sessão 4 — Enunciado oficial integrado; resultados de execução aguardam inserção das evidências reais do laboratório.**
+
+---
+
+## 11. Materiais Moodle e navegação da sessão
+
+**Curso:** R1-M5 — Linux e Cibersegurança — Ed1
 
 https://elearning.skodjidigital.cv/course/view.php?id=23
 
-### Navegação da sessão
+**Sessão 3:** https://elearning.skodjidigital.cv/course/section.php?id=136
 
-- Sessão 3 — Hardening de Redes Linux e Configuração de Firewalls: https://elearning.skodjidigital.cv/course/section.php?id=136
-- Sessão 5 — Análise de Vulnerabilidades em Linux e Ferramentas de Auditoria: https://elearning.skodjidigital.cv/course/section.php?id=350
+**Sessão 5:** https://elearning.skodjidigital.cv/course/section.php?id=350
 
-### Conteúdos e avaliação
+**Slides da Sessão 4:** https://elearning.skodjidigital.cv/mod/resource/view.php?id=850
 
-- Pré-Teste: https://elearning.skodjidigital.cv/mod/quiz/view.php?id=835
-- Slides da Sessão 4: https://elearning.skodjidigital.cv/mod/resource/view.php?id=850
-- Pos-Teste: https://elearning.skodjidigital.cv/mod/quiz/view.php?id=851
-- Dúvidas e Debates: https://elearning.skodjidigital.cv/mod/forum/view.php?id=838
+**Pré-Teste:** https://elearning.skodjidigital.cv/mod/quiz/view.php?id=835
 
-### Bibliografia complementar
+**Pos-Teste:** https://elearning.skodjidigital.cv/mod/quiz/view.php?id=851
 
-- Vídeo — SSH mais seguro: https://elearning.skodjidigital.cv/mod/url/view.php?id=839
-- Vídeo — Controle o Linux de QUALQUER LUGAR com esta ferramenta: https://elearning.skodjidigital.cv/mod/url/view.php?id=840
-- Vídeo — SSH SEGURO!: https://elearning.skodjidigital.cv/mod/url/view.php?id=842
+**Enunciado Lab4:** https://elearning.skodjidigital.cv/mod/resource/view.php?id=864
 
-## 7. Laboratório síncrono e submissão
+**Submissão — GitHub Trabalho:** https://elearning.skodjidigital.cv/mod/assign/view.php?id=865
 
-- Enunciado Lab4 — Sessão 4: https://elearning.skodjidigital.cv/mod/resource/view.php?id=864
-- Submissão — GitHub Trabalho: https://elearning.skodjidigital.cv/mod/assign/view.php?id=865
+**Autor / Formando:** Marcos dos Santos
 
 ## 8. Resultados práticos
 
