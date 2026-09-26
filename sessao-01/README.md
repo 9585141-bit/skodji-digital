@@ -201,7 +201,7 @@ documentação no GitHub
 
 ## 14. Nota sobre o ambiente de estudo
 
-Parte da prática foi realizada no computador pessoal **BITYJR**, utilizado como laboratório complementar para executar comandos Linux, testar conceitos de rede e manter o estudo ativo durante os períodos de espera do TryHackMe, que em determinadas situações chegavam a **24 horas**.
+Parte da prática foi realizada no computador pessoal, utilizado como laboratório complementar para executar comandos Linux, testar conceitos de rede e manter o estudo ativo durante os períodos de espera do TryHackMe, que em determinadas situações chegavam a **24 horas**.
 
 Os resultados apresentados nesta sessão identificam explicitamente quando o output pertence ao ambiente local e quando corresponde ao laboratório remoto do TryHackMe.
 
