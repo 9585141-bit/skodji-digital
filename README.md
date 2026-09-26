@@ -102,3 +102,10 @@ Registar as práticas do percurso de forma reproduzível, mantendo:
 - estado de cada laboratório.
 
 **Percurso documentado até à Sessão 03.**
+
+
+## Nota sobre o ambiente de estudo
+
+Durante o percurso, o computador pessoal **BITYJR** foi utilizado várias vezes como laboratório complementar para executar comandos, testar conceitos e continuar a documentação prática. Isto foi especialmente necessário em períodos em que o ambiente gratuito do TryHackMe impunha um período de espera de até **24 horas** para voltar a utilizar determinadas máquinas/laboratórios.
+
+Assim, o portfólio distingue entre resultados recolhidos diretamente no TryHackMe e exercícios/práticas realizados no computador pessoal, mantendo o objetivo de continuar a aprendizagem mesmo durante os períodos de espera da plataforma.
