@@ -126,3 +126,74 @@ O comando `ss -tuln` mostrou também as portas locais 40200, 40205, 40300, 40305
 A atividade permitiu praticar a utilização de comandos Linux para observação da configuração de rede e dos sockets locais, bem como a utilização do Nmap para deteção de portas, serviços e versões.
 
 O principal resultado do scan solicitado foi a identificação da porta 22/TCP aberta, executando OpenSSH 9.6p1 Ubuntu 3ubuntu13.18. A documentação destes resultados permite caracterizar a superfície de exposição inicial do alvo no contexto do laboratório.
+
+
+---
+
+## 9. Ficha do laboratório
+
+**Laboratório:** Sessão 1 — Introdução ao Linux para Segurança e Comandos de Rede  
+**Curso:** Reskilling  
+**Módulo:** Linux e Cibersegurança  
+**Objetivo de Aprendizagem:** OA1 — Analisar  
+**Duração da prática guiada:** 02:30–03:50 (1h20)  
+**Formador:** Péricles Borges
+
+### Contexto
+
+Mapeamento e análise da superfície de exposição de um servidor alvo na rede. A atividade foi realizada no papel de auditor de sistemas, começando pela identificação da interface de rede do ambiente local, seguida da observação dos serviços em escuta e do reconhecimento do alvo com Nmap.
+
+### Ambientes utilizados
+
+- KillerCoda Ubuntu Playground — familiarização com a linha de comandos Linux
+- TryHackMe — Further Nmap — reconhecimento do alvo
+
+## 10. Critérios de entrega
+
+| Critério | Resultado documentado |
+|---|---|
+| Número de portas abertas identificadas | **1 porta TCP aberta** no scan básico documentado |
+| Serviços em execução | **SSH** em `22/tcp` |
+| Versão exata detetada | **OpenSSH 9.6p1 Ubuntu 3ubuntu13.18** |
+| Output completo de `ip a` | ✅ Incluído |
+| Output completo de `ss -tuln` | ✅ Incluído |
+| Output do Nmap | ✅ Incluído |
+| Análise dos resultados | ✅ Incluída |
+
+## 11. Checklist de submissão — Portfólio GitHub
+
+- [x] Criar/atualizar `sessao-01/README.md`
+- [x] Documentar o número de portas abertas
+- [x] Documentar os serviços encontrados
+- [x] Documentar as versões exatas detetadas
+- [x] Incluir o output de `ip a`
+- [x] Incluir o output de `ss -tuln`
+- [x] Incluir o output completo do Nmap
+- [x] Registar observações e conclusão
+- [x] Fazer commit no repositório do portfólio
+
+## 12. Linha de execução da prática
+
+```text
+KillerCoda
+   ↓
+ip a
+   ↓
+identificação da interface e IP
+   ↓
+ss -tuln
+   ↓
+identificação de sockets/portas em escuta
+   ↓
+TryHackMe Further Nmap
+   ↓
+nmap -sV -sC <IP_DO_ALVO>
+   ↓
+portas + serviços + versões
+   ↓
+documentação no GitHub
+```
+
+## 13. Estado final
+
+**Sessão 1 documentada no portfólio e alinhada aos critérios de entrega do laboratório.**
