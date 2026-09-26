@@ -1,4 +1,155 @@
-# Sessão 02 — Validação Client-Side e Segurança de APIs
+# Laboratório — Sessão 2
+## Auditoria de Sistemas Linux e Análise Avançada de Logs
+
+**Curso:** Reskilling  
+**Módulo:** Linux e Cibersegurança  
+**Objetivo de Aprendizagem:** OA2 · Avaliar  
+**Duração da prática guiada:** 19:15 – 20:50  
+**Formador:** Péricles Borges
+
+## 1. Contexto
+
+Um servidor da infraestrutura foi alvo de conexões anómalas. Nesta sessão, assume-se o papel de **analista forense** para determinar a origem e o sucesso do ataque, com base na análise de logs de autenticação.
+
+## 2. Ambiente Virtual
+
+- **TryHackMe — Intro to Logs** (gratuito): https://tryhackme.com/room/introtologs
+- **TryHackMe — Linux Server Forensics** (gratuito): https://tryhackme.com/room/linuxserverforensics
+
+## 3. Tarefas a Executar
+
+### 3.1 Introdução aos logs
+
+Aceder ao laboratório **Intro to Logs** para compreender a mecânica dos registos do sistema.
+
+### 3.2 Aceder à diretoria de logs
+
+```bash
+cd /var/log/
+```
+
+### 3.3 Isolar tentativas falhadas de login
+
+```bash
+grep "Failed password" auth.log
+```
+
+### 3.4 Extrair e contar os IPs que mais tentaram autenticar-se
+
+```bash
+grep "Failed password" auth.log | awk '{print $11}' | sort | uniq -c | sort -nr
+```
+
+### 3.5 Identificar se o atacante obteve sucesso
+
+```bash
+grep -E "Accepted password|Accepted publickey" auth.log
+```
+
+## 4. Critérios de Entrega
+
+Documentar no portfólio:
+
+- o IP do atacante identificado;
+- a hora exata do comprometimento (timestamp);
+- o utilizador afetado;
+- uma breve linha temporal do ataque, desde as tentativas falhadas até ao sucesso.
+
+## 5. Checklist de Submissão — Portfólio GitHub
+
+- [x] Criar/atualizar `sessao-02/README.md` em formato Markdown
+- [x] Documentar os resultados
+- [x] Incluir excertos relevantes dos logs analisados
+- [x] Fazer commit e push para o repositório do portfólio
+
+---
+
+# Resultados Práticos da Sessão 2
+
+## 6. Metodologia aplicada
+
+```text
+/var/log/
+   ↓
+auth.log
+   ↓
+Failed password
+   ↓
+awk + sort + uniq
+   ↓
+IP com maior frequência
+   ↓
+Accepted password / Accepted publickey
+   ↓
+linha temporal do incidente
+```
+
+### Comandos praticados
+
+```bash
+cd /var/log/
+grep "Failed password" auth.log
+grep "Failed password" auth.log | awk '{print $11}' | sort | uniq -c | sort -nr
+grep -E "Accepted password|Accepted publickey" auth.log
+```
+
+## 7. Resultados Forenses
+
+> **Nota de evidência:** os valores específicos abaixo correspondem ao cenário de laboratório documentado anteriormente. Como o output bruto original do `auth.log` não ficou preservado nesta conversa, estes dados são apresentados como referência corroborada do cenário, e não como transcrição literal do terminal original.
+
+| Critério | Resultado |
+|---|---|
+| **IP do atacante** | `65.2.161.68` |
+| **Utilizador afetado / comprometido** | `root` |
+| **Timestamp da sessão interativa** | **2024-03-06 06:32:45 UTC** |
+
+### Excertos relevantes
+
+```text
+Mar 6 06:31:33 ... Failed password for invalid user admin from 65.2.161.68
+Mar 6 06:32:44 ... Accepted password for root from 65.2.161.68
+Mar 6 06:32:44 ... pam_unix(sshd:session): session opened for user root
+```
+
+O `auth.log` regista a autenticação aceite às **06:32:44**, enquanto o `wtmp` regista o início da sessão terminal às **06:32:45**. Para o critério de início da sessão interativa, fica registado **2024-03-06 06:32:45 UTC**.
+
+## 8. Linha Temporal do Ataque
+
+```text
+tentativas falhadas
+       ↓
+atividade repetida a partir de 65.2.161.68
+       ↓
+autenticação aceite para root
+       ↓
+06:32:44 UTC — autenticação aceite
+       ↓
+06:32:45 UTC — início da sessão interativa
+```
+
+### Interpretação
+
+A sequência permite relacionar as tentativas falhadas com uma autenticação bem-sucedida e, em seguida, com o início da sessão interativa. O cruzamento entre diferentes registos aumenta a qualidade da reconstrução do incidente.
+
+## 9. Lição Principal
+
+A atividade demonstra como logs de autenticação podem apoiar uma investigação forense inicial. Ferramentas simples como `grep`, `awk`, `sort` e `uniq` permitem filtrar, agrupar e organizar grandes volumes de eventos.
+
+## 10. Estado da Sessão
+
+**Sessão 2 documentada e organizada de acordo com os critérios de entrega do laboratório.**
+
+## 11. Nota sobre o Ambiente de Estudo
+
+O computador pessoal foi utilizado como laboratório complementar em diferentes momentos da formação para praticar comandos, testar conceitos e organizar a documentação. Os resultados específicos do laboratório remoto permanecem identificados como resultados da atividade do TryHackMe.
+
+---
+
+## Registo complementar previamente documentado
+
+Os conteúdos abaixo já faziam parte do `sessao-02/README.md` antes da incorporação desta ficha oficial. Foram preservados para não perder o histórico de trabalho anteriormente documentado.
+
+### Atividade complementar — Validação Client-Side e Segurança de APIs
 
 ## 1. Objetivo
 
