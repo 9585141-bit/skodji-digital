@@ -338,7 +338,7 @@ A distinção entre **hora da autenticação** e **hora do início da sessão in
 
 ## 23. Nota sobre o ambiente de estudo
 
-O computador pessoal **BITYJR** também foi utilizado como laboratório complementar em vários momentos da formação. Essa abordagem permitiu continuar a praticar comandos, análise e documentação quando o acesso a determinadas máquinas gratuitas do TryHackMe ficava condicionado por períodos de espera de até **24 horas**.
+O computador pessoal também foi utilizado como laboratório complementar em vários momentos da formação. Essa abordagem permitiu continuar a praticar comandos, análise e documentação quando o acesso a determinadas máquinas gratuitas do TryHackMe ficava condicionado por períodos de espera de até **24 horas**.
 
 A utilização do computador pessoal teve como finalidade exclusivamente pedagógica: reproduzir conceitos, testar comandos em ambiente controlado e preparar a análise antes ou depois da utilização do laboratório remoto.
 
