@@ -197,3 +197,10 @@ documentação no GitHub
 ## 13. Estado final
 
 **Sessão 1 documentada no portfólio e alinhada aos critérios de entrega do laboratório.**
+
+
+## 14. Nota sobre o ambiente de estudo
+
+Parte da prática foi realizada no computador pessoal **BITYJR**, utilizado como laboratório complementar para executar comandos Linux, testar conceitos de rede e manter o estudo ativo durante os períodos de espera do TryHackMe, que em determinadas situações chegavam a **24 horas**.
+
+Os resultados apresentados nesta sessão identificam explicitamente quando o output pertence ao ambiente local e quando corresponde ao laboratório remoto do TryHackMe.
