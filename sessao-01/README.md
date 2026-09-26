@@ -1,17 +1,72 @@
-# Sessão 01 — Introdução ao Linux para Segurança e Comandos de Rede
+# Laboratório — Sessão 1
+## Introdução ao Linux para Segurança e Comandos de Rede
 
-## 1. Objetivo
+**Curso:** Reskilling  
+**Módulo:** Linux e Cibersegurança  
+**Objetivo de Aprendizagem:** OA1 · Analisar  
+**Duração da prática guiada:** 02:30 – 03:50 (1h20)  
+**Formador:** Péricles Borges
 
-Executar uma análise básica da superfície de exposição de um alvo Linux, utilizando comandos de rede e o Nmap para identificar portas abertas, serviços e versões.
+## 1. Contexto
 
-## 2. Ambiente local
+Mapeamento e análise da superfície de exposição de um servidor alvo na rede local.
 
-- Hostname: `ubuntu`
-- Utilizador: `root`
+Nesta sessão, assume-se o papel de **auditor de sistemas**: o objetivo é identificar a interface de rede do próprio ambiente, listar os serviços em escuta e, de seguida, mapear um alvo remoto com o Nmap.
+
+## 2. Ambiente virtual
+
+- **KillerCoda Ubuntu Playground** — terminal Linux gratuito no browser, sem instalação: https://killercoda.com/playgrounds/scenario/ubuntu
+- **TryHackMe — Further Nmap** (gratuito): https://tryhackme.com/room/furthernmap
+
+## 3. Tarefas a executar
+
+1. Aceder ao KillerCoda Ubuntu Playground para familiarização com o CLI.
+2. Executar o comando e identificar o endereço IP da interface principal:
+
+```bash
+ip a
+```
+
+3. Usar o comando para listar todos os portos abertos em escuta no ambiente local:
+
+```bash
+ss -tuln
+```
+
+4. Aceder à sala TryHackMe Further Nmap e iniciar a máquina alvo.
+5. Executar um scan básico Nmap contra o alvo fornecido, com deteção de versões e scripts padrão:
+
+```bash
+nmap -sV -sC <IP_DO_ALVO>
+```
+
+## 4. Critérios de entrega
+
+Documentar no portfólio:
+
+- número de portas abertas identificadas;
+- serviços em execução em cada porta;
+- versões exatas detetadas pelo Nmap;
+- output completo do comando `ip a`;
+- output completo do comando `ss -tuln`.
+
+## 5. Checklist de submissão — Portfólio GitHub
+
+- [x] Criar/atualizar `sessao-01/README.md` com os resultados documentados
+- [x] Incluir os outputs dos comandos em texto
+- [x] Registar o resultado do Nmap
+- [x] Fazer commit e push para o repositório do portfólio
+
+---
+
+# Resultados práticos
+
+## 6. Ambiente utilizado no laboratório
+
 - Arquitetura: `x86_64`
 - Kernel: `6.8.0-138-generic`
 
-## 3. Configuração de rede
+## 7. Configuração de rede
 
 ### Comando
 
@@ -40,7 +95,7 @@ ip a
        valid_lft forever preferred_lft forever
 ```
 
-## 4. Portas e sockets locais
+## 8. Portas e sockets locais
 
 ### Comando
 
@@ -68,15 +123,15 @@ tcp    LISTEN  0       4096                                      *:40305        
 tcp    LISTEN  0       4096                                   [::]:22              *:*
 ```
 
-## 5. Scan Nmap
+## 9. Scan Nmap
 
-### Comando solicitado
+### Comando
 
 ```bash
 nmap -sV -sC 172.30.1.2
 ```
 
-### Output completo
+### Output
 
 ```text
 Starting Nmap 7.94SVN ( https://nmap.org ) at 2026-09-02 22:59 UTC
@@ -94,117 +149,35 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 0.55 seconds
 ```
 
-## 6. Resultados
-
-### Número de portas abertas
+## 10. Resultados
 
 No scan básico do Nmap foram identificadas **1 porta TCP aberta** entre os 1000 principais portos verificados.
-
-### Serviço em execução
 
 | Porta | Estado | Serviço | Versão detetada |
 |---|---|---|---|
 | `22/tcp` | `open` | SSH | `OpenSSH 9.6p1 Ubuntu 3ubuntu13.18` |
 
-### Scripts padrão
+O resultado oficial do scan mostrou também **999 portas TCP fechadas** dentro do conjunto dos 1000 principais portos verificados.
 
-O script padrão do Nmap identificou duas chaves de host SSH:
+## 11. Análise
 
-- ECDSA
-- ED25519
+O host `172.30.1.2` respondeu ao scan e apresentou a porta `22/tcp` aberta, com serviço SSH identificado pelo Nmap.
 
-## 7. Observações da análise
+O comando `ss -tuln` mostrou outras portas em escuta localmente, incluindo `40200`, `40205`, `40300`, `40305` e `41857`. Estas observações locais não contradizem o scan básico: sem especificação de portas, o Nmap verifica por defeito os 1000 portos TCP mais comuns.
 
-O host `172.30.1.2` encontra-se ativo e respondeu ao scan. O resultado oficial de `nmap -sV -sC` mostrou 999 portas TCP fechadas e uma porta aberta, a porta 22.
+## 12. Conclusão
 
-O serviço SSH está associado à versão `OpenSSH 9.6p1 Ubuntu 3ubuntu13.18`.
+A atividade permitiu praticar a observação da configuração de rede, a identificação de sockets locais e o reconhecimento de portas, serviços e versões com Nmap.
 
-O comando `ss -tuln` mostrou também as portas locais 40200, 40205, 40300, 40305 e 41857 em escuta. Estas portas foram observadas localmente, mas não aparecem no scan básico porque o Nmap, sem especificação de portas, verifica por padrão os 1000 portos TCP mais comuns.
-
-## 8. Conclusão
-
-A atividade permitiu praticar a utilização de comandos Linux para observação da configuração de rede e dos sockets locais, bem como a utilização do Nmap para deteção de portas, serviços e versões.
-
-O principal resultado do scan solicitado foi a identificação da porta 22/TCP aberta, executando OpenSSH 9.6p1 Ubuntu 3ubuntu13.18. A documentação destes resultados permite caracterizar a superfície de exposição inicial do alvo no contexto do laboratório.
-
-
----
-
-## 9. Ficha do laboratório
-
-**Laboratório:** Sessão 1 — Introdução ao Linux para Segurança e Comandos de Rede  
-**Curso:** Reskilling  
-**Módulo:** Linux e Cibersegurança  
-**Objetivo de Aprendizagem:** OA1 — Analisar  
-**Duração da prática guiada:** 02:30–03:50 (1h20)  
-**Formador:** Péricles Borges
-
-### Contexto
-
-Mapeamento e análise da superfície de exposição de um servidor alvo na rede. A atividade foi realizada no papel de auditor de sistemas, começando pela identificação da interface de rede do ambiente local, seguida da observação dos serviços em escuta e do reconhecimento do alvo com Nmap.
-
-### Ambientes utilizados
-
-- KillerCoda Ubuntu Playground — familiarização com a linha de comandos Linux
-- TryHackMe — Further Nmap — reconhecimento do alvo
-
-## 10. Critérios de entrega
-
-| Critério | Resultado documentado |
-|---|---|
-| Número de portas abertas identificadas | **1 porta TCP aberta** no scan básico documentado |
-| Serviços em execução | **SSH** em `22/tcp` |
-| Versão exata detetada | **OpenSSH 9.6p1 Ubuntu 3ubuntu13.18** |
-| Output completo de `ip a` | ✅ Incluído |
-| Output completo de `ss -tuln` | ✅ Incluído |
-| Output do Nmap | ✅ Incluído |
-| Análise dos resultados | ✅ Incluída |
-
-## 11. Checklist de submissão — Portfólio GitHub
-
-- [x] Criar/atualizar `sessao-01/README.md`
-- [x] Documentar o número de portas abertas
-- [x] Documentar os serviços encontrados
-- [x] Documentar as versões exatas detetadas
-- [x] Incluir o output de `ip a`
-- [x] Incluir o output de `ss -tuln`
-- [x] Incluir o output completo do Nmap
-- [x] Registar observações e conclusão
-- [x] Fazer commit no repositório do portfólio
-
-## 12. Linha de execução da prática
-
-```text
-KillerCoda
-   ↓
-ip a
-   ↓
-identificação da interface e IP
-   ↓
-ss -tuln
-   ↓
-identificação de sockets/portas em escuta
-   ↓
-TryHackMe Further Nmap
-   ↓
-nmap -sV -sC <IP_DO_ALVO>
-   ↓
-portas + serviços + versões
-   ↓
-documentação no GitHub
-```
+O principal resultado do scan solicitado foi a identificação da porta `22/TCP` aberta, executando **OpenSSH 9.6p1 Ubuntu 3ubuntu13.18**.
 
 ## 13. Estado final
 
-**Sessão 1 documentada no portfólio e alinhada aos critérios de entrega do laboratório.**
-
+**Sessão 1 documentada no portfólio e alinhada com os critérios de entrega do laboratório.**
 
 ## 14. Nota sobre o ambiente de estudo
 
-Parte da prática foi realizada no computador pessoal, utilizado como laboratório complementar para executar comandos Linux, testar conceitos de rede e manter o estudo ativo durante os períodos de espera do TryHackMe, que em determinadas situações chegavam a **24 horas**.
-
-Os resultados apresentados nesta sessão identificam explicitamente quando o output pertence ao ambiente local e quando corresponde ao laboratório remoto do TryHackMe.
-
+Parte da prática foi realizada no computador pessoal, utilizado como laboratório complementar para executar comandos Linux, testar conceitos de rede e manter o estudo ativo durante períodos de espera do TryHackMe.
 
 ---
 
