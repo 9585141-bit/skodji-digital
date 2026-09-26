@@ -82,6 +82,23 @@ skodji-digital/
 
 ---
 
+## Sessão 04 — Gestão Segura de Acessos Remotos SSH
+
+**Tema:** Gestão Segura de Acessos Remotos SSH em Linux.
+
+**Foco:**
+- chaves criptográficas Ed25519;
+- autenticação por chave SSH;
+- desativação da autenticação por password;
+- bloqueio de login root direto;
+- alteração da porta padrão do SSH;
+- validação segura de `sshd_config` com `sshd -t`.
+
+**Estado:** 🟡 Estrutura criada; evidências práticas a integrar
+
+📘 **[Abrir o trabalho da Sessão 04](sessao-04/README.md)**
+
+---
 ## Estado do percurso
 
 | Sessão | Área principal | Estado |
@@ -89,6 +106,7 @@ skodji-digital/
 | 01 | Linux, rede e Nmap | ✅ Concluída |
 | 02 | Web, APIs, autenticação e logs | ✅ Concluída |
 | 03 | Hardening de redes e firewalls | ✅ Concluída |
+| 04 | SSH seguro e acessos remotos | 🟡 Em documentação |
 
 ## Linha de aprendizagem
 
@@ -127,4 +145,4 @@ A documentação pode ser atualizada à medida que novas evidências, outputs, e
 
 ---
 
-**Percurso documentado até à Sessão 03.**
+**Percurso documentado até à Sessão 04.**
