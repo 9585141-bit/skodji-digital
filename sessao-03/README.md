@@ -1,4 +1,95 @@
-# Sessão 03 — Análise Forense de Servidores Linux e Persistência via systemd
+# Laboratório — Sessão 3
+## Hardening de Redes Linux e Configuração de Firewalls
+
+**Curso:** Reskilling  
+**Módulo:** Linux e Cibersegurança  
+**Objetivo de Aprendizagem:** OA3 · Aplicar  
+**Duração da prática guiada:** 19:15 – 20:50  
+**Formador:** Péricles Borges
+
+## 1. Contexto
+
+Configuração de uma política defensiva estrita para impedir acessos não autorizados a serviços críticos do servidor, combinando **UFW** e **iptables**.
+
+## 2. Ambiente Virtual
+
+- **KillerCoda Ubuntu Playground:** https://killercoda.com/playgrounds/scenario/ubuntu
+- **TryHackMe — Network Security Essentials** (gratuito): https://tryhackme.com/room/networksecurityessentials
+
+## 3. Tarefas a Executar
+
+### 3.1 Verificar o estado atual do UFW
+
+```bash
+sudo ufw status
+```
+
+### 3.2 Alterar as políticas padrão
+
+Bloquear ligações de entrada e permitir ligações de saída:
+
+```bash
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+```
+
+### 3.3 Permitir acesso SSH
+
+```bash
+sudo ufw allow 22/tcp
+```
+
+Esta regra mantém o acesso SSH pela porta TCP 22 enquanto o tráfego de entrada não autorizado permanece bloqueado pela política padrão.
+
+### 3.4 Adicionar regra de bloqueio no iptables
+
+Para simular o bloqueio de um IP malicioso fictício na chain `INPUT`:
+
+```bash
+sudo iptables -A INPUT -s 203.0.113.50 -j DROP
+```
+
+### 3.5 Guardar o estado persistente do iptables
+
+```bash
+sudo iptables-save | sudo tee /etc/iptables/rules.v4
+```
+
+## 4. Critérios de Entrega
+
+Documentar no portfólio:
+
+- captura de ecrã ou output de texto das regras UFW ativas:
+
+```bash
+sudo ufw status verbose
+```
+
+- listagem completa do `iptables`:
+
+```bash
+sudo iptables -L -v
+```
+
+- breve explicação da política aplicada, indicando o que está bloqueado e porquê.
+
+## 5. Checklist de Submissão — Portfólio GitHub
+
+- [x] Criar/atualizar `sessao-03/README.md` com a ficha e os resultados documentados
+- [ ] Incluir o output real de `sudo ufw status verbose`
+- [ ] Incluir o output real de `sudo iptables -L -v`
+- [ ] Explicar a política defensiva aplicada
+- [ ] Fazer commit e push para o repositório do portfólio
+
+> **Nota:** os outputs reais não foram inventados. Esta versão regista corretamente o procedimento e os critérios; os resultados de execução devem ser acrescentados a partir do terminal/laboratório quando disponíveis.
+
+---
+
+# Atividade complementar — Forensics e Persistência via systemd
+
+Este conteúdo já fazia parte do `sessao-03/README.md` e foi preservado como atividade complementar, para manter o histórico do percurso.
+
+## Análise Forense de Servidores Linux e Persistência via systemd
 
 ## 1. Objetivo
 
