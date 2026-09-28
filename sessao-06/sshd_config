@@ -1,0 +1,8 @@
+# Cópia limpa da configuração SSH efetivamente aplicada no BITY-LAB
+# Laboratório local - sem passwords, chaves privadas ou tokens
+
+Port 2222
+PermitRootLogin no
+PasswordAuthentication no
+PubkeyAuthentication yes
+Subsystem sftp internal-sftp
