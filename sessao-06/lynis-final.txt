@@ -1,0 +1,15 @@
+Lynis 3.0.9
+Operating system: Ubuntu 24.04
+Kernel version: 6.18.33.2
+Tests performed: 250
+
+Hardening index : 66
+Warnings        : 0
+Suggestions     : 49
+
+Components:
+- Firewall               [ACTIVE]
+- Malware scanner        [NOT INSTALLED]
+
+Exception:
+- PKGS-7410: Could not find any kernel packages via package manager
