@@ -229,8 +229,6 @@ Permission denied (publickey,keyboard-interactive).
 - [x] Validar a configuração com `sshd -t`
 - [x] Fazer commit e push para o repositório do portfólio
 
-**Commit da documentação:** `bce5fdbe1e1dd669339b120e658b16a7eeecd633`
-
 ## 7. Critérios de entrega
 - [x] Copiar as linhas modificadas do `sshd_config`
 - [x] Validar a configuração com `sshd -t`
