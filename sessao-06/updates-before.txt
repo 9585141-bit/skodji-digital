@@ -1,0 +1,3 @@
+=== PACOTES ATUALIZÁVEIS - ANTES ===
+43 packages can be upgraded.
+29 standard LTS security updates.
