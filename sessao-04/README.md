@@ -184,8 +184,54 @@ Este resultado confirma que a autenticação por password foi rejeitada.
 | Chave utilizada | Ed25519 |
 | Login de teste | confirmado |
 
-## 5. Critérios de entrega
+## 5. Documentação e evidências exigidas
 
+### 5.1 Cópia das linhas modificadas do `sshd_config`
+
+```text
+Port 2222
+PermitRootLogin no
+PubkeyAuthentication yes
+PasswordAuthentication no
+```
+
+Estas são as diretivas efetivamente aplicadas e validadas no laboratório.
+
+### 5.2 Evidência de login bem-sucedido via chave criptográfica
+
+Comando executado:
+
+```bash
+ssh -i ~/.ssh/id_ed25519 -p 2222 teste@172.30.1.2
+```
+
+Output de confirmação:
+
+```text
+teste@ubuntu:~$ whoami
+teste
+
+teste@ubuntu:~$ echo $SSH_CONNECTION
+172.30.1.2 40694 172.30.1.2 2222
+```
+
+### 5.3 Evidência de rejeição da autenticação por password
+
+```text
+Permission denied (publickey,keyboard-interactive).
+```
+
+## 6. Checklist de Submissão — Portfólio GitHub
+
+- [x] Criar/atualizar `sessao-04/README.md` com os resultados documentados
+- [x] Incluir cópia limpa das diretivas corrigidas do `sshd_config`, sem chaves privadas ou dados sensíveis
+- [x] Incluir evidência de login bem-sucedido via chave criptográfica
+- [x] Validar a configuração com `sshd -t`
+- [x] Fazer commit e push para o repositório do portfólio
+
+**Commit da documentação:** `bce5fdbe1e1dd669339b120e658b16a7eeecd633`
+
+## 7. Critérios de entrega
 - [x] Copiar as linhas modificadas do `sshd_config`
 - [x] Validar a configuração com `sshd -t`
 - [x] Comprovar a escuta na porta 2222
