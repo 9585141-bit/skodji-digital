@@ -1,268 +1,298 @@
-# Laboratório — Sessão 6 (Desafio MiniCTF)
+# Laboratório — Sessão 6 (Mini-CTF Defensivo Linux)
+
 ## Desafio Prático Integrador — Mini-CTF Defensivo Linux
 
 **Curso:** Reskilling  
 **Módulo:** Linux e Cibersegurança  
-**Objetivo de Aprendizagem:** Integração de OA1 a OA5 (foco em Criar)  
-**Duração da prática:** 19:15 – 20:50 (Hackathon Defensivo — Partes 1 e 2)  
+**Objetivo de Aprendizagem:** Integração de OA1 a OA5  
 **Formador:** Péricles Borges  
-**Peso na avaliação:** 65% da nota final (Portfólio GitHub)
+**Peso na avaliação:** 65% da nota final  
+**Autor / Formando:** Marcos dos Santos
 
-## 1. Cenário
-
-O servidor Ubuntu da empresa fictícia **Linux Agency** apresenta indícios de atividade suspeita e configurações severamente inseguras.
-
-A missão é auditar, conter os danos, aplicar as correções e documentar toda a intervenção, como num cenário controlado de resposta a um incidente.
-
-## 2. Ambiente Virtual
-
-- **TryHackMe — Linux Agency** (gratuito): https://tryhackme.com/room/linuxagency
-- **TryHackMe — Linux Incident Surface** (gratuito, alternativa): https://tryhackme.com/room/linuxincidentsurface
-
-Uma das duas salas deve ser utilizada como base do desafio, de acordo com a orientação do formador.
-
-## 3. Metodologia de Resposta — Roteiro de Ações Exigidas
-
-### Fase 1 — Identificação e Triagem
-
-#### 3.1 Análise de rede e portas
-
-Identificar quais os portos e serviços ativos que estão expostos desnecessariamente.
-
-```bash
-ss -tuln
-nmap -sV localhost
-```
-
-#### 3.2 Auditoria de contas
-
-Procurar utilizadores com permissões excessivas, contas sem palavra-passe associada ou chaves públicas suspeitas em `authorized_keys`.
-
-```bash
-sudo cat /etc/shadow | awk -F: '($2==""){print $1}'
-cat ~/.ssh/authorized_keys
-```
-
-Os resultados devem ser analisados e documentados como evidências do estado inicial.
-
-### Fase 2 — Contenção
-
-Ativar a firewall UFW e bloquear as portas de entrada que não sejam estritamente necessárias para o negócio.
-
-```bash
-sudo ufw default deny incoming
-sudo ufw allow 22/tcp
-sudo ufw enable
-```
-
-Registar as regras efetivamente aplicadas e guardar evidência do estado da firewall.
-
-### Fase 3 — Enrijecimento / Remediação
-
-Corrigir a configuração SSH de acordo com as boas práticas:
-
-- desativar login root;
-- bloquear autenticação por password;
-- migrar para chaves criptográficas.
-
-Aplicar também os patches de segurança relevantes identificados durante a triagem.
-
-### Validação
-
-Executar o Lynis para verificar a melhoria da postura de segurança global do host:
-
-```bash
-sudo lynis audit system
-```
-
-Registar o resultado final e o score pós-hardening.
-
-## 4. Critérios de Entrega Obrigatória
-
-O trabalho final deve ser um **Relatório Técnico de Auditoria e Mitigação em Markdown (`README.md`)**, estruturado pelas fases:
-
-```text
-Identificação
-      ↓
-Contenção
-      ↓
-Remediação
-      ↓
-Validação
-```
-
-Também devem ser incluídos:
-
-- ficheiros de configuração corrigidos, incluindo cópia limpa do `sshd_config`;
-- regras UFW exportadas;
-- publicação do ecossistema completo de evidências no portfólio individual GitHub para avaliação formal do formador.
-
-## 5. Checklist de Submissão — Portfólio GitHub
-
-- [ ] Criar/atualizar `sessao-06/README.md` com o Relatório Técnico completo
-- [ ] Documentar Identificação → Contenção → Remediação → Validação
-- [ ] Incluir `sessao-06/sshd_config` (cópia limpa, sem dados sensíveis)
-- [ ] Incluir `sessao-06/ufw-rules.txt` (output de `ufw status verbose`)
-- [ ] Incluir excerto do relatório Lynis final (score pós-hardening)
-- [ ] Confirmar que o repositório está público ou partilhado com o formador
-- [ ] Fazer commit e push final antes do prazo de submissão
-
-> **Nota de evidência:** resultados, scores, utilizadores, portas, regras e outputs devem corresponder à execução real do laboratório. Não serão inventados.
+> **Nota:** esta documentação regista a execução real de uma reprodução local/adaptação do laboratório em Ubuntu 24.04.5 no WSL2, separada da tentativa do TryHackMe Linux Agency. Não são inventados resultados.
 
 ---
 
-# Resultados Práticos
-
-## 6. Fase 1 — Identificação e Triagem
-
-### 6.1 Rede e portas
-
-#### `ss -tuln`
+## 1. Metodologia
 
 ```text
-A preencher com o output real.
+Identificação / Triagem
+          ↓
+Contenção
+          ↓
+Remediação
+          ↓
+Validação
 ```
 
-#### `nmap -sV localhost`
+---
+
+## 2. Fase 1 — Identificação e Triagem
+
+### 2.1 Rede e portas
+
+### `ss -tuln`
+
+Foi identificada uma exposição adicional de SSH na porta `22`, além do SSH do laboratório na porta `2222`.
+
+Principais portas TCP observadas:
 
 ```text
-A preencher com o output real.
+0.0.0.0:22      LISTEN
+0.0.0.0:2222    LISTEN
+[::]:22         LISTEN
+[::]:2222       LISTEN
 ```
 
-### 6.2 Auditoria de contas
+Também foram observados serviços DNS locais nas portas 53.
+
+### `nmap -sV localhost`
+
+Resultado real:
+
+```text
+22/tcp   open  ssh   OpenSSH 10.2p1 Ubuntu 2ubuntu3.5
+2222/tcp open  ssh   OpenSSH 9.6p1 Ubuntu 3ubuntu13.19
+```
+
+A porta `2222` corresponde ao SSH do BITY-LAB. A porta `22` permaneceu visível, mas não apareceu associada ao `ssh.service` local através do `systemctl list-sockets`, indicando uma camada adicional da infraestrutura WSL. A origem da porta `22` não foi alterada neste laboratório para evitar uma intervenção não controlada.
+
+### 2.2 Auditoria de contas
 
 #### Contas sem password
 
+Comando:
+
+```bash
+sudo cat /etc/shadow | awk -F: '($2==""){print $1}'
+```
+
+Resultado:
+
 ```text
-A preencher com o output real do comando de auditoria.
+Nenhuma conta foi apresentada pelo comando.
 ```
 
 #### Chaves autorizadas
 
-```text
-A preencher com o conteúdo relevante de authorized_keys, removendo dados sensíveis quando necessário.
-```
+Foi encontrada uma chave pública Ed25519 em `~/.ssh/authorized_keys` para o utilizador do laboratório. A chave privada não foi publicada nem incluída neste portfólio.
 
-## 7. Fase 2 — Contenção
+### 2.3 Estado inicial de segurança
 
-### Estado da firewall
+A triagem mostrou:
 
-Comandos principais:
-
-```bash
-sudo ufw default deny incoming
-sudo ufw allow 22/tcp
-sudo ufw enable
-sudo ufw status verbose
-```
-
-### Evidência
-
-```text
-A preencher com o output real de ufw status verbose.
-```
-
-## 8. Fase 3 — Enrijecimento / Remediação
-
-### Configuração SSH
-
-Registar as linhas efetivamente modificadas no `sshd_config`.
-
-```text
-A preencher com a configuração efetivamente aplicada.
-```
-
-### Patches
-
-**Medidas aplicadas:** a preencher com os patches/correções efetivamente realizados.
-
-## 9. Validação com Lynis
-
-```bash
-sudo lynis audit system
-```
-
-### Score pós-hardening
-
-**Hardening Score final:** a preencher com o resultado real.
-
-### Evidência Lynis
-
-```text
-A preencher com o excerto real do relatório final.
-```
-
-## 10. Ficheiros obrigatórios
-
-### `sessao-06/sshd_config`
-
-Deve conter uma cópia limpa da configuração utilizada, sem chaves privadas, passwords ou outros dados sensíveis.
-
-**Estado:** ⏳ A aguardar configuração real.
-
-### `sessao-06/ufw-rules.txt`
-
-Deve conter o output real de:
-
-```bash
-sudo ufw status verbose
-```
-
-**Estado:** ⏳ A aguardar output real.
-
-## 11. Relatório Técnico Final
-
-O relatório deverá ligar cada evidência à respetiva ação:
-
-```text
-evidência encontrada
-       ↓
-problema identificado
-       ↓
-risco
-       ↓
-medida de contenção
-       ↓
-correção
-       ↓
-validação
-       ↓
-estado final
-```
-
-## 12. Estado da Sessão
-
-**Sessão 6 — Enunciado oficial integrado. Estrutura do relatório criada; resultados e ficheiros de evidência aguardam integração das execuções reais.**
-
-## 13. Segurança do portfólio
-
-- Nunca publicar chaves privadas.
-- Remover passwords, tokens e outros dados sensíveis dos ficheiros publicados.
-- Utilizar apenas dados necessários para comprovar o trabalho.
-- Manter as evidências identificadas como laboratório controlado.
+- SSH inicialmente disponível também na porta 22;
+- SSH do laboratório migrado para a porta 2222;
+- autenticação por chave validada;
+- nenhuma conta com campo de password vazio;
+- firewall UFW inicialmente inativa.
 
 ---
 
-## 14. Materiais da formação
+## 3. Fase 2 — Contenção
 
-**Sessão 5:** https://elearning.skodjidigital.cv/course/section.php?id=350
+A política da UFW foi configurada para negar ligações de entrada por omissão e permitir saída.
 
-**Inquérito de Reação do Formando:** https://elearning.skodjidigital.cv/course/section.php?id=414
+Configuração efetivamente aplicada:
 
-### Slide da Sessão 6
+```text
+Default: deny (incoming)
+Default: allow (outgoing)
+Default: disabled (routed)
+Logging: on (low)
+```
 
-https://elearning.skodjidigital.cv/course/section.php?id=400
+Como o SSH do laboratório utiliza a porta `2222`, foi criada a exceção:
 
-**Slide 6:** https://elearning.skodjidigital.cv/mod/resource/view.php?id=914
+```text
+2222/tcp   ALLOW IN   Anywhere
+2222/tcp (v6)   ALLOW IN   Anywhere (v6)
+```
 
-### Laboratório Final
+### Validação
 
-https://elearning.skodjidigital.cv/course/section.php?id=399
+Com UFW ativo, o acesso SSH por chave continuou a funcionar:
 
-**Enunciado Lab 6:** https://elearning.skodjidigital.cv/mod/resource/view.php?id=910
+```text
+whoami
+bitylab
 
+SSH_CONNECTION
+127.0.0.1 44356 127.0.0.1 2222
+```
+
+Evidências gravadas no laboratório:
+
+- `ufw-rules.txt`
+- `ss.txt`
+- `nmap.txt`
+
+---
+
+## 4. Fase 3 — Enrijecimento / Remediação
+
+### 4.1 Hardening SSH
+
+Configuração efetiva do SSH do BITY-LAB:
+
+```text
+Port 2222
+PermitRootLogin no
+PasswordAuthentication no
+PubkeyAuthentication yes
+Subsystem sftp internal-sftp
+```
+
+Também foi validado pelo `sshd -T`:
+
+```text
+port 2222
+permitrootlogin no
+pubkeyauthentication yes
+passwordauthentication no
+```
+
+A ligação de teste por chave foi bem-sucedida.
+
+### 4.2 Patches
+
+Antes da atualização:
+
+```text
+43 packages can be upgraded
+29 standard LTS security updates
+```
+
+Foi executado:
+
+```bash
+sudo apt upgrade -y
+```
+
+Resultado final:
+
+```text
+43 upgraded
+0 newly installed
+0 to remove
+0 not upgraded
+```
+
+Após a atualização:
+
+```text
+apt list --upgradable
+Listing...
+```
+
+Ou seja, não permaneceram pacotes atualizáveis segundo essa verificação.
+
+---
+
+## 5. Fase 4 — Validação com Lynis
+
+### Resultado final
+
+```text
+Lynis version:      3.0.9
+Ubuntu:              24.04
+Tests performed:    250
+Hardening index:    66
+Warnings:           0
+Suggestions:        49
+Firewall:           ACTIVE
+Malware scanner:    NOT INSTALLED
+```
+
+### Interpretação
+
+A auditoria final registou **0 warnings**. Permaneceram 49 sugestões, entre elas recomendações sobre:
+
+- hardening adicional do SSH;
+- permissões de ficheiros;
+- password aging e umask;
+- auditd e file integrity;
+- proteção de serviços systemd;
+- configuração de AppArmor;
+- instalação de ferramentas adicionais de segurança.
+
+O Lynis também registou uma exceção `PKGS-7410`, informando que não encontrou pacotes de kernel através do gestor de pacotes. Este comportamento foi registado como parte do ambiente WSL2 e não tratado como falha do hardening SSH/UFW.
+
+---
+
+## 6. Resumo das fases
+
+### Identificação
+
+```text
+✅ ss -tuln
+✅ nmap -sV localhost
+✅ auditoria de /etc/shadow
+✅ verificação de authorized_keys
+✅ identificação da exposição nas portas 22 e 2222
+```
+
+### Contenção
+
+```text
+✅ UFW ativado
+✅ deny incoming por omissão
+✅ 2222/tcp permitida
+✅ acesso SSH validado com firewall ativo
+```
+
+### Remediação
+
+```text
+✅ root login desativado
+✅ password authentication desativada
+✅ autenticação por chave validada
+✅ 43 pacotes atualizados
+✅ 0 pacotes restantes no apt list --upgradable
+```
+
+### Validação
+
+```text
+✅ Lynis executado após as correções
+✅ Hardening Index: 66
+✅ 0 warnings
+✅ 49 sugestões registadas
+```
+
+---
+
+## 7. Evidências publicadas
+
+```text
+sessao-06/
+├── README.md
+├── sshd_config
+├── ufw-rules.txt
+├── ss.txt
+├── nmap.txt
+└── lynis-final.txt
+```
+
+Os ficheiros não devem conter passwords, chaves privadas, tokens ou outros dados sensíveis.
+
+---
+
+## 8. Relação com o TryHackMe
+
+Foi realizada uma tentativa separada no **TryHackMe Linux Agency**. O ambiente remoto ficou posteriormente inacessível durante a prática. Por isso, os resultados deste README correspondem explicitamente ao **laboratório local BITY-LAB**, não a uma execução completa da máquina remota do TryHackMe.
+
+---
+
+## 9. Materiais da formação
+
+**Sessão 5:** https://elearning.skodjidigital.cv/course/section.php?id=350  
+**Slide 6:** https://elearning.skodjidigital.cv/mod/resource/view.php?id=914  
+**Enunciado Lab 6:** https://elearning.skodjidigital.cv/mod/resource/view.php?id=910  
 **Submissão:** https://elearning.skodjidigital.cv/mod/assign/view.php?id=911
 
 ---
 
-**Autor / Formando:** Marcos dos Santos
+## 10. Estado da Sessão
+
+**Sessão 6 — reprodução local executada, evidências recolhidas e validação final realizada.**
