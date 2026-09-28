@@ -92,7 +92,9 @@ PASS_MIN_DAYS       1
 PASS_WARN_AGE       7
 ```
 
-A CISOfy descreve o AUTH-9286 como um controlo de *password aging* e relaciona a renovação periódica de passwords com a redução do risco associado a passwords fracas ou obtidas por terceiros. A própria página também ressalva que a necessidade de password aging depende da política e do modelo de autenticação do ambiente. citeturn391069search0
+A CISOfy descreve o AUTH-9286 como um controlo de *password aging* e relaciona a renovação periódica de passwords com a redução do risco associado a passwords fracas ou obtidas por terceiros. A própria página também ressalva que a necessidade de password aging depende da política e do modelo de autenticação do ambiente.
+
+Referência: https://cisofy.com/lynis/controls/AUTH-9286/
 
 **Validação:** na segunda auditoria, o Lynis passou a reportar:
 
@@ -131,7 +133,9 @@ Validação:
 600 root:root /etc/ssh/sshd_config
 ```
 
-A CISOfy define o FILE-7524 como um controlo de permissões esperado pelo perfil de auditoria e indica que, conforme o ficheiro analisado, deve ser verificado o motivo da diferença e corrigida a permissão quando apropriado. A página comunitária atual não fornece uma correção universal adicional. citeturn391069search1
+A CISOfy define o FILE-7524 como um controlo de permissões esperado pelo perfil de auditoria e indica que, conforme o ficheiro analisado, deve ser verificado o motivo da diferença e corrigida a permissão quando apropriado. A página comunitária atual não fornece uma correção universal adicional.
+
+Referência: https://cisofy.com/lynis/controls/FILE-7524/
 
 **Resultado da segunda auditoria:** o `/etc/ssh/sshd_config` passou a `[ OK ]`, mas o `FILE-7524` continua como Suggestion devido às restantes permissões identificadas em `/etc/crontab` e nos diretórios `cron.*`.
 
