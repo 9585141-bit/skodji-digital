@@ -216,6 +216,29 @@ Output observado:
 
 **Limites desta evidência:** o output confirma o estado no momento da recolha, mas não comprova persistência após reinício, nem que o serviço SSH esteja efetivamente a escutar e acessível em `2222/tcp`. Esses pontos exigem validação separada caso façam parte dos critérios de avaliação.
 
+### 6.5 Verificação da configuração guardada pelo UFW
+
+Comandos executados:
+
+```bash
+sudo ufw status numbered
+sudo ufw show added
+sudo grep -nE '203\.0\.113\.50|2222|^ENABLED=' /etc/ufw/user.rules /etc/ufw/user6.rules /etc/ufw/ufw.conf
+sudo ls -la /etc/ufw
+```
+
+Resultados relevantes observados:
+
+- O UFW continua `active`.
+- A listagem numerada contém apenas `2222/tcp ALLOW IN Anywhere` e `2222/tcp (v6) ALLOW IN Anywhere (v6)`.
+- `ufw show added` apresenta apenas `ufw allow 2222/tcp`.
+- Os ficheiros `/etc/ufw/user.rules` e `/etc/ufw/user6.rules` contêm a regra `ALLOW` da porta TCP 2222 nas respetivas famílias IP.
+- `/etc/ufw/ufw.conf` contém `ENABLED=yes`.
+- `/etc/iptables/rules.v4` não existe neste ambiente; por isso, não há nesse caminho uma cópia guardada das regras iptables.
+- Não foi encontrada referência ao IP de teste `203.0.113.50` nos ficheiros consultados, nem nas regras ativas apresentadas anteriormente.
+
+**Interpretação:** existe configuração do UFW guardada nos ficheiros próprios do serviço, incluindo a regra da porta 2222 e a opção para o UFW estar ativado. Isto não substitui um teste real após reinício: a persistência operacional ainda não foi validada. A regra de bloqueio do IP fictício prevista no enunciado continua por aplicar ou por comprovar. Não foi adicionada nenhuma regra nesta recolha.
+
 ---
 
 # Atividade complementar — Forensics e Persistência via systemd
