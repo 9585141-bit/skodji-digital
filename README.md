@@ -116,7 +116,7 @@ skodji-digital/
 |---|---|---|
 | 01 | Linux, rede e Nmap | ✅ Documentação e resultados publicados |
 | 02 | Auditoria e logs | 🟡 Rever rastreabilidade da evidência bruta |
-| 03 | UFW e iptables | 🟡 UFW ativo e config guardada; faltam bloqueio do IP de teste e validação após reinício |
+| 03 | UFW e iptables | ✅ Entregáveis anteriores concluídos; verificação WSL posterior complementar |
 | 04 | SSH seguro | ✅ Configuração e testes documentados |
 | 05 | Lynis | 🟡 Warning de pacotes vulneráveis permanece |
 | 06 | Mini-CTF defensivo | 🟡 Reprodução local documentada; tentativa TryHackMe separada |
