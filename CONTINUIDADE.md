@@ -6,6 +6,10 @@
 
 > **Regra principal para próximas sessões:** consultar este registo e o README da sessão antes de recomendar qualquer ação. Não pedir a Kris para repetir exercícios que já realizou e entregou. Se uma nova verificação for realmente necessária, explicar por que é diferente e não a apresentar como repetição da entrega.
 
+## Auditoria das entregas por módulo
+
+O registo ativo está em [AUDITORIA-ENTREGAS.md](AUDITORIA-ENTREGAS.md). Consultá-lo antes de perguntar por atividades já feitas. Os estados de submissão Moodle permanecem por confirmar quando não existe evidência visível da página autenticada. Não presumir que uma tarefa está pendente apenas porque aparece no GitHub, nem que falta a entrega porque um ficheiro não está no repositório.
+
 ## Como retomar o trabalho sem perder contexto
 
 1. Ler este ficheiro e o [README principal](README.md), e consultar a sessão específica antes de sugerir tarefas.
