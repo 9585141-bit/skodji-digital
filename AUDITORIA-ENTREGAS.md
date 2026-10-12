@@ -36,11 +36,24 @@ O portefólio contém documentação para seis sessões. Os checklists nos READM
 | **03 — Firewall UFW/iptables** | [README da Sessão 03](sessao-03/README.md), outputs históricos e verificação complementar do WSL | **Kris confirmou que os testes e exercícios entregáveis já foram realizados e entregues anteriormente.** Não repetir. A observação posterior do BITYJR/WSL não altera esse estado |
 | **04 — Hardening SSH** | [README da Sessão 04](sessao-04/README.md), evidência de chave SSH, porta 2222 e rejeição de password; [link de submissão Moodle referenciado no documento](https://elearning.skodjidigital.cv/mod/assign/view.php?id=865) | Documentação publicada; estado da submissão Moodle por confirmar |
 | **05 — Auditoria com Lynis** | [README da Sessão 05](sessao-05/README.md), comparação 62→63, warnings 1→1 e suggestions 48→46; [link de submissão Moodle referenciado no documento](https://elearning.skodjidigital.cv/mod/assign/view.php?id=891) | Documentação publicada; estado da submissão Moodle por confirmar. O warning PKGS-7392 permanece como resultado técnico documentado, não prova de falta de entrega |
-| **06 — Mini-CTF defensivo** | [README da Sessão 06](sessao-06/README.md) e ficheiros de evidência; [link de submissão Moodle referenciado no documento](https://elearning.skodjidigital.cv/mod/assign/view.php?id=911) | Reprodução local documentada, separada da tentativa TryHackMe; estado da submissão Moodle por confirmar |
+| **06 — Mini-CTF defensivo** | [README da Sessão 06](sessao-06/README.md) e ficheiros de evidência; a página do Moodle fornecida por Kris confirma a atividade de submissão ID 911 e abertura em 24/07/2026 às 00:00 | Reprodução local documentada, separada da tentativa TryHackMe; submissão, prazo final, nota e feedback continuam por confirmar — o excerto da página da sessão não mostra esses campos |
 
 ### Sobre os links de submissão
 
 Os links acima são os que constam nos documentos do repositório. A existência de um link de submissão indica apenas que a atividade foi referenciada no portefólio; não confirma o estado real da submissão, nota ou feedback.
+
+### Evidência recebida — página Moodle da Sessão 6
+
+Kris forneceu o texto da página intitulada **“Sessão 6 – Desafio Prático Integrador (Mini-CTF Defensivo Linux) e Avaliação”**. Essa página mostra:
+
+- **Slide da Sessão 6:** secção Moodle ID 400 e recurso PDF ID 914.
+- **Laboratório Final:** secção Moodle ID 399; enunciado PDF ID 910.
+- **Atividade de submissão:** `submissaoTrabalho`, [Moodle assignment ID 911](https://elearning.skodjidigital.cv/mod/assign/view.php?id=911).
+- **Data de abertura indicada:** sexta-feira, 24 de julho de 2026, às 00:00.
+- **Inquérito de Reação do Formando:** a página apresenta ligação à secção ID 414.
+
+**O que esta evidência não confirma:** se o trabalho foi submetido, a data efetiva de submissão, o prazo final, a nota ou o feedback do formador. Portanto, o estado da entrega continua **a confirmar no ecrã da própria atividade Moodle** e não está marcado como pendente. O inquérito também deve ser verificado separadamente apenas para saber se aparece como atividade concluída/obrigatória.
+
 
 ## Módulo R1-M7 — Growth & Analytics
 
