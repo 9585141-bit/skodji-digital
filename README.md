@@ -66,7 +66,7 @@ skodji-digital/
 
 **Práticas:** `ufw` · `iptables` · `iptables-save`
 
-**Estado documental:** 🟡 Parcial, com evidências publicadas. No ambiente `BITYJR` (Ubuntu 24.04.5), o UFW está ativo, com `deny incoming`, `INPUT DROP` e permissão de entrada `2222/tcp` para IPv4/IPv6. A regra da porta está guardada em `/etc/ufw/user.rules` e `/etc/ufw/user6.rules`, com `ENABLED=yes`; porém, ainda não foi testada após reinício. O bloqueio do IP de teste `203.0.113.50` não aparece nas regras atuais e ` /etc/iptables/rules.v4` não existe.
+**Estado da atividade:** ✅ Kris confirmou que os testes e exercícios entregáveis desta sessão já tinham sido realizados e entregues anteriormente. A verificação posterior no ambiente pessoal `BITYJR` (Ubuntu 24.04.5/WSL) é complementar e regista apenas o estado atual desse ambiente: UFW ativo, `deny incoming`, `INPUT DROP` e permissão de entrada `2222/tcp` para IPv4/IPv6. O IP de teste `203.0.113.50` não aparece nesta configuração atual e `/etc/iptables/rules.v4` não existe aqui; isso não implica que os exercícios entregues anteriormente estejam por fazer. A persistência após reinício não foi novamente testada nesta verificação complementar.
 
 📘 [Abrir o trabalho da Sessão 03](sessao-03/README.md)
 
@@ -123,9 +123,8 @@ skodji-digital/
 
 ## Próximas prioridades
 
-1. **Sessão 03:** configurar e documentar com segurança a regra de bloqueio do IP de teste exigida pelo enunciado; depois, validar a persistência após reinício, se o ambiente de laboratório permitir.
-2. **Sessão 05:** rever o warning `PKGS-7392` e só atualizar o estado depois de uma nova auditoria com evidência.
-3. **Sessão 06:** fazer uma revisão final dos ficheiros obrigatórios, dos links e da distinção entre a reprodução local e a sala TryHackMe.
+1. **Sessão 05:** rever o warning `PKGS-7392` e só atualizar o estado depois de uma nova auditoria com evidência.
+2. **Sessão 06:** fazer uma revisão final dos ficheiros obrigatórios, dos links e da distinção entre a reprodução local e a sala TryHackMe.
 
 ## Linha de aprendizagem
 
