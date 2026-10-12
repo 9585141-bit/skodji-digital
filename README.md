@@ -2,21 +2,30 @@
 
 Portfólio de aprendizagem e projetos do percurso **Reskilling Digital — Linux e Cibersegurança**.
 
-**Autor / Formando:** Marcos dos Santos
+**Autor / Formando:** Marcos dos Santos  
+**Repositório:** [9585141-bit/skodji-digital](https://github.com/9585141-bit/skodji-digital)
 
 ## Organização do portfólio
 
-Cada sessão possui o seu próprio diretório e `README.md`, com objetivo, contexto, procedimentos, evidências, resultados, lições aprendidas e estado da atividade.
+Cada sessão possui o seu próprio diretório e `README.md`, com objetivos, contexto, procedimentos, evidências, resultados, lições aprendidas e estado das atividades.
 
 ```text
 skodji-digital/
 ├── README.md
-├── sessao-01/
-│   └── README.md
-├── sessao-02/
-│   └── README.md
-└── sessao-03/
-    └── README.md
+├── sessao-01/README.md
+├── sessao-02/README.md
+├── sessao-03/README.md
+├── sessao-04/README.md
+├── sessao-05/README.md
+└── sessao-06/
+    ├── README.md
+    ├── sshd_config
+    ├── ufw-rules.txt
+    ├── ss.txt
+    ├── nmap.txt
+    ├── updates-before.txt
+    ├── updates-after.txt
+    └── lynis-final.txt
 ```
 
 ---
@@ -25,159 +34,125 @@ skodji-digital/
 
 **Tema:** Introdução ao Linux para Segurança e Comandos de Rede.
 
-**Foco:**
-- fundamentos Linux;
-- identificação de interfaces e endereços;
-- sockets e portas em escuta;
-- reconhecimento de serviços;
-- Nmap e deteção de versões;
-- análise inicial da superfície de exposição.
+**Foco:** fundamentos Linux; interfaces e endereços IP; sockets e portas em escuta; reconhecimento de serviços; Nmap e deteção de versões; análise inicial da superfície de exposição.
 
-**Principais práticas:** `ip a` · `ss -tuln` · `nmap -sV -sC`
+**Práticas:** `ip a` · `ss -tuln` · `nmap -sV -sC`
 
-**Estado:** ✅ Concluída
+**Estado documental:** ✅ README e resultados práticos publicados.
 
-📘 **[Abrir o trabalho da Sessão 01](sessao-01/README.md)**
+📘 [Abrir o trabalho da Sessão 01](sessao-01/README.md)
 
 ---
 
-## Sessão 02 — Web, APIs, Autenticação e Logs
+## Sessão 02 — Auditoria Linux e Análise de Logs
 
-**Tema:** Validação client-side, segurança de APIs e auditoria de sistemas Linux.
+**Tema:** análise de autenticação, tentativas falhadas e linha temporal de incidente.
 
-**Foco:**
-- análise de aplicação web;
-- identificação de validação no lado do cliente;
-- teste direto de API em ambiente de laboratório;
-- análise de `/var/log/auth.log`;
-- identificação de tentativas de autenticação;
-- reconstrução de uma linha temporal de eventos.
+**Foco:** logs em `/var/log`; extração e contagem de IPs; comparação entre autenticações falhadas e bem-sucedidas.
 
-**Principais práticas:** `curl` · `nmap` · `grep` · `awk` · `sort` · `uniq`
+**Práticas:** `grep` · `awk` · `sort` · `uniq`
 
-**Estado:** ✅ Concluída
+**Estado documental:** 🟡 README publicado. Rever a rastreabilidade dos valores do cenário e recuperar os logs brutos originais se estiverem disponíveis; o próprio documento assinala essa limitação de evidência.
 
-📘 **[Abrir o trabalho da Sessão 02](sessao-02/README.md)**
+📘 [Abrir o trabalho da Sessão 02](sessao-02/README.md)
 
 ---
 
-## Sessão 03 — Hardening de Redes Linux e Firewalls
+## Sessão 03 — Hardening de Redes e Firewalls
 
-**Tema:** Hardening de Redes Linux e Configuração de Firewalls.
+**Tema:** políticas UFW e iptables.
 
-**Foco:**
-- configuração de políticas UFW;
-- definição de regras de entrada e saída;
-- permissão controlada de SSH;
-- bloqueio de IP com iptables;
-- verificação das regras ativas;
-- persistência das regras do firewall;
-- explicação da política defensiva.
+**Foco:** políticas de entrada e saída; permissão controlada de SSH; bloqueio de IP de teste; persistência das regras.
 
-**Principais práticas:** `ufw` · `iptables` · `iptables-save`
+**Práticas:** `ufw` · `iptables` · `iptables-save`
 
-**Estado:** ✅ Concluída
+**Estado documental:** 🟡 Parcial. Os outputs registados mostram UFW inativo e políticas `INPUT`/`OUTPUT` em `ACCEPT` no momento da recolha. A aplicação e a validação final da política defensiva continuam pendentes de evidência; não se declara o hardening concluído.
 
-📘 **[Abrir o trabalho da Sessão 03](sessao-03/README.md)**
+📘 [Abrir o trabalho da Sessão 03](sessao-03/README.md)
 
 ---
 
-## Sessão 04 — Gestão Segura de Acessos Remotos SSH
+## Sessão 04 — Gestão Segura de Acessos SSH
 
-**Tema:** Gestão Segura de Acessos Remotos SSH em Linux.
+**Tema:** autenticação por chave e hardening do serviço SSH.
 
-**Foco:**
-- chaves criptográficas Ed25519;
-- autenticação por chave SSH;
-- desativação da autenticação por password;
-- bloqueio de login root direto;
-- alteração da porta padrão do SSH;
-- validação segura de `sshd_config` com `sshd -t`.
+**Foco:** chaves Ed25519; desativação de autenticação por password; bloqueio de login root; mudança da porta; validação de `sshd_config` e teste de acesso.
 
-**Estado:** 🟡 Estrutura criada; evidências práticas a integrar
+**Práticas:** `ssh-keygen` · `sshd -t` · `sshd -T` · `systemctl`
 
-📘 **[Abrir o trabalho da Sessão 04](sessao-04/README.md)**
+**Estado documental:** ✅ Evidências de configuração, escuta na porta 2222 e autenticação por chave publicadas. A chave privada não deve ser incluída no repositório.
+
+📘 [Abrir o trabalho da Sessão 04](sessao-04/README.md)
 
 ---
-## Sessão 05 — Análise de Vulnerabilidades em Linux e Ferramentas de Auditoria
 
-**Tema:** Auditoria automatizada de segurança com Lynis.
+## Sessão 05 — Auditoria com Lynis
 
-**Foco:**
-- execução do Lynis;
-- Hardening Score;
-- Warnings;
-- Suggestions;
-- seleção de duas vulnerabilidades/fragilidades críticas;
-- proposta de medidas corretivas.
+**Tema:** auditoria automatizada e remediação de fragilidades.
 
-**Estado:** 🟡 Estrutura criada; resultados práticos a integrar
+**Foco:** Hardening Index; Warnings; Suggestions; password aging; permissões de ficheiros; comparação antes/depois.
 
-📘 **[Abrir o trabalho da Sessão 05](sessao-05/README.md)**
+**Estado documental:** 🟡 Auditorias e correções documentadas. O Hardening Index subiu de 62 para 63 e as Suggestions passaram de 48 para 46; o warning `PKGS-7392` permaneceu no resultado final documentado. A pendência deve continuar visível até existir nova validação.
+
+📘 [Abrir o trabalho da Sessão 05](sessao-05/README.md)
 
 ---
-## Sessão 06 — Desafio Prático Integrador e Avaliação
 
-**Tema:** Mini-CTF Defensivo Linux e integração dos conhecimentos das Sessões 1 a 5.
+## Sessão 06 — Mini-CTF Defensivo Linux
 
-**Foco:**
-- resposta a incidente em ambiente de laboratório;
-- identificação e contenção de problemas;
-- correção de configurações inseguras;
-- validação das medidas aplicadas;
-- relatório técnico final.
+**Tema:** resposta a incidente, contenção, remediação e validação.
 
-**Estado:** 🟡 Estrutura criada; enunciado detalhado e evidências a integrar
+**Foco:** identificação de portas/serviços; auditoria de contas; UFW; hardening SSH; patches; Lynis.
 
-📘 **[Abrir o trabalho da Sessão 06](sessao-06/README.md)**
+**Estado documental:** 🟡 Relatório e evidências da reprodução local no Ubuntu 24.04.5/WSL2 publicados. Resultado Lynis final documentado: Hardening Index 66, 0 warnings e 49 suggestions. A tentativa no TryHackMe Linux Agency está identificada separadamente e não é apresentada como uma execução remota concluída. A exposição da porta 22 na infraestrutura WSL2 ficou registada como não resolvida neste laboratório.
+
+📘 [Abrir o trabalho da Sessão 06](sessao-06/README.md)
 
 ---
+
 ## Estado do percurso
 
-| Sessão | Área principal | Estado |
+| Sessão | Área principal | Estado atual |
 |---|---|---|
-| 01 | Linux, rede e Nmap | ✅ Concluída |
-| 02 | Web, APIs, autenticação e logs | ✅ Concluída |
-| 03 | Hardening de redes e firewalls | ✅ Concluída |
-| 04 | SSH seguro e acessos remotos | 🟡 Em documentação |
-| 05 | Auditoria Linux e Lynis | 🟡 Em documentação |
-| 06 | Desafio integrador e avaliação | 🟡 Em documentação |
+| 01 | Linux, rede e Nmap | ✅ Documentação e resultados publicados |
+| 02 | Auditoria e logs | 🟡 Rever rastreabilidade da evidência bruta |
+| 03 | UFW e iptables | 🟡 Falta evidência de política final aplicada |
+| 04 | SSH seguro | ✅ Configuração e testes documentados |
+| 05 | Lynis | 🟡 Warning de pacotes vulneráveis permanece |
+| 06 | Mini-CTF defensivo | 🟡 Reprodução local documentada; tentativa TryHackMe separada |
+
+## Próximas prioridades
+
+1. **Sessão 03:** confirmar no ambiente de laboratório correto a aplicação final do UFW/iptables e guardar outputs posteriores reais.
+2. **Sessão 05:** rever o warning `PKGS-7392` e só atualizar o estado depois de uma nova auditoria com evidência.
+3. **Sessão 06:** fazer uma revisão final dos ficheiros obrigatórios, dos links e da distinção entre a reprodução local e a sala TryHackMe.
 
 ## Linha de aprendizagem
 
 ```text
-Sessão 01
-Linux + Rede + Nmap
+Sessão 01 — Linux + Rede + Nmap
         ↓
-Sessão 02
-Web + API + Autenticação + Logs
+Sessão 02 — Web + Autenticação + Logs
         ↓
-Sessão 03
-Hardening + UFW + iptables
+Sessão 03 — Hardening + Firewalls
+        ↓
+Sessão 04 — SSH + Chaves criptográficas
+        ↓
+Sessão 05 — Auditoria + Lynis
+        ↓
+Sessão 06 — Resposta a incidente + Validação
 ```
 
-## Objetivo do portfólio
+## Princípios de documentação
 
-Documentar o percurso de forma organizada e reproduzível, preservando:
+O Git funciona como registo vivo do percurso de aprendizagem. As evidências devem ser reproduzíveis e distinguir sempre:
+- resultados efetivamente observados;
+- interpretações técnicas;
+- limitações do ambiente;
+- tarefas ainda pendentes.
 
-- conhecimento adquirido;
-- procedimentos praticados;
-- evidências e resultados;
-- interpretação técnica;
-- lições aprendidas;
-- evolução de cada sessão;
-- histórico das atividades no Git.
-
-## Relação com a aprendizagem prática
-
-O computador pessoal foi utilizado como laboratório complementar para praticar comandos, testar conceitos e continuar a documentação durante períodos de espera do TryHackMe.
-
-Os resultados específicos dos laboratórios remotos são identificados dentro das respetivas sessões.
-
-## Nota sobre a evolução da documentação
-
-A documentação pode ser atualizada à medida que novas evidências, outputs, explicações ou correções sejam recuperados. O objetivo é manter o Git como **registo vivo do percurso de aprendizagem**, e não apenas como depósito dos trabalhos finais.
+Não publicar passwords, chaves privadas, tokens, cookies ou outros dados sensíveis. Quando um resultado não estiver confirmado, manter a pendência explícita em vez de declarar a tarefa concluída.
 
 ---
 
-**Percurso documentado até à Sessão 06.**
+**Portfólio organizado até à Sessão 06; continuam identificadas as pendências técnicas e de evidência acima.**
