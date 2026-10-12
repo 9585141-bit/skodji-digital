@@ -2,6 +2,8 @@
 
 Portfólio de aprendizagem e projetos do percurso **Reskilling Digital — Linux e Cibersegurança**.
 
+> **Continuidade do projeto:** antes de retomar o trabalho, consultar [CONTINUIDADE.md](CONTINUIDADE.md), que regista os entregáveis concluídos, o contexto das sessões e as regras para evitar repetir tarefas.
+
 **Autor / Formando:** Marcos dos Santos  
 **Repositório:** [9585141-bit/skodji-digital](https://github.com/9585141-bit/skodji-digital)
 
