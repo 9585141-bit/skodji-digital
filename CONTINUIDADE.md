@@ -66,6 +66,7 @@ Resultados documentados: Hardening Index 62 → 63; Warnings 1 → 1; Suggestion
 Documento: [sessao-05/README.md](sessao-05/README.md)
 
 ### Sessão 06 — Mini-CTF defensivo Linux
+**Informação adicional fornecida por Kris a 12/10/2026:** a página Moodle “Sessão 6 – Desafio Prático Integrador (Mini-CTF Defensivo Linux) e Avaliação” confirma enunciado PDF ID 910, atividade de submissão `submissaoTrabalho` ID 911 (aberta sexta-feira, 24/07/2026 às 00:00), slide PDF ID 914 e ligação ao Inquérito de Reação do Formando/ secção ID 414. O texto colado não mostra estado de submissão, prazo final, nota ou feedback; manter esses itens como **a confirmar**, não como pendentes. Consultar [AUDITORIA-ENTREGAS.md](AUDITORIA-ENTREGAS.md) para a análise detalhada.
 A reprodução local/adaptação foi executada em Ubuntu 24.04.5/WSL2 e deve continuar claramente separada da tentativa no TryHackMe Linux Agency, que não foi concluída como execução remota. Evidências publicadas: `sshd_config`, `ufw-rules.txt`, `ss.txt`, `nmap.txt`, `updates-before.txt`, `updates-after.txt`, `lynis-final.txt`. Resultado Lynis final documentado: Hardening Index 66, 0 warnings e 49 suggestions; exceção `PKGS-7410` registada. A exposição da porta 22 associada à infraestrutura WSL2 foi assinalada como não resolvida neste laboratório. Próxima melhoria é uma revisão documental/consistência, não repetir o mini-CTF.
 
 Documento: [sessao-06/README.md](sessao-06/README.md)
