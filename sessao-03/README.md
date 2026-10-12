@@ -79,10 +79,10 @@ sudo iptables -L -v
 - [x] Executar anteriormente `sudo ufw status verbose`
 - [x] Executar anteriormente `sudo iptables -L -v`
 - [x] Recuperar e registar os outputs reais dos dois comandos
-- [ ] Confirmar/documentar a aplicação final da política de hardening solicitada
+- [x] Registar uma verificação posterior do UFW/iptables no ambiente BITYJR (Ubuntu 24.04.5; ver secção 6.4)
 - [x] Fazer commit e push para o repositório do portfólio
 
-> **Estado da evidência:** os outputs reais foram agora recuperados e inseridos abaixo. Eles mostram o estado observado no momento da verificação: UFW inativo e políticas `INPUT`/`OUTPUT` do iptables em `ACCEPT`. A aplicação final da política defensiva permanece separada dessa evidência e não é declarada como concluída sem o respetivo output.
+> **Histórico da evidência:** a recolha inicial abaixo registou UFW inativo e políticas `INPUT`/`OUTPUT` do iptables em `ACCEPT`. Foi recolhida posteriormente uma nova verificação no ambiente identificado como `BITYJR`, Ubuntu 24.04.5 LTS, na qual o UFW está ativo e a política `INPUT` é `DROP`. Os dois registos são mantidos com contexto; o output inicial não é apagado nem reinterpretado como se tivesse sido obtido depois. Ver secção 6.4 para a evidência posterior.
 
 ## 6. Outputs reais recolhidos no laboratório
 
@@ -100,7 +100,7 @@ Output real:
 Status: inactive
 ```
 
-**Interpretação:** no momento desta verificação, o UFW estava **inativo**. Portanto, este output regista o estado observado antes da ativação/configuração de uma política UFW.
+**Interpretação:** nessa recolha inicial, o UFW estava **inativo**. Uma recolha posterior mostrou um estado diferente no ambiente identificado como `BITYJR`; a evidência posterior está registada separadamente na secção 6.4.
 
 ### 6.2 Estado atual do iptables
 
@@ -149,16 +149,72 @@ Chain DOCKER-USER (1 references)
  pkts bytes target     prot opt in     out     source               destination         
 ```
 
-**Interpretação:** a verificação mostra que a chain `INPUT` estava com política padrão `ACCEPT`, assim como `OUTPUT`. Também existiam chains relacionadas com Docker, incluindo `DOCKER-USER`, `DOCKER-FORWARD`, `DOCKER-BRIDGE`, `DOCKER-CT` e `DOCKER-INTERNAL`.
+**Interpretação:** a recolha inicial mostrou políticas padrão `ACCEPT` em `INPUT` e `OUTPUT`, além de chains relacionadas com Docker. A verificação posterior do ambiente `BITYJR` mostrou `INPUT DROP` e `OUTPUT ACCEPT`; ver secção 6.4.
 
 ### 6.3 Estado documental da tarefa
 
 Os outputs reais exigidos pelo enunciado já foram recuperados e incluídos no portfólio.
 
-**Importante:** estes outputs comprovam o **estado observado no momento da verificação**, mas não comprovam, por si só, a aplicação posterior das regras de hardening solicitadas. A documentação mantém essa distinção para preservar a precisão técnica.
+**Importante:** os outputs são fotografias do estado observado em momentos diferentes. A nova recolha comprova que, no momento do teste em `BITYJR`, o UFW estava ativo com entrada negada por omissão e que o iptables tinha política `INPUT DROP`. A persistência após reinício e a conectividade SSH efetiva não foram testadas nesta recolha.
 
+### 6.4 Verificação posterior — ambiente BITYJR
 
-> **Nota de histórico:** a prática foi realizada anteriormente. Nesta versão, os procedimentos e a execução já realizada ficam registados; os outputs completos ainda precisam apenas de ser recuperados do registo original para cumprir a evidência documental.
+**Ambiente reportado pelo terminal:**
+
+```text
+hostname: BITYJR
+Ubuntu 24.04.5 LTS
+```
+
+Comando:
+
+```bash
+sudo ufw status verbose
+```
+
+Output observado:
+
+```text
+Status: active
+Logging: on (low)
+Default: deny (incoming), allow (outgoing), disabled (routed)
+New profiles: skip
+
+To                         Action      From
+--                         ------      ----
+2222/tcp                   ALLOW IN    Anywhere
+2222/tcp (v6)              ALLOW IN    Anywhere (v6)
+```
+
+Comandos:
+
+```bash
+sudo iptables -S INPUT
+sudo iptables -S OUTPUT
+```
+
+Output observado:
+
+```text
+-P INPUT DROP
+-A INPUT -j ufw-before-logging-input
+-A INPUT -j ufw-before-input
+-A INPUT -j ufw-after-input
+-A INPUT -j ufw-after-logging-input
+-A INPUT -j ufw-reject-input
+-A INPUT -j ufw-track-input
+-P OUTPUT ACCEPT
+-A OUTPUT -j ufw-before-logging-output
+-A OUTPUT -j ufw-before-output
+-A OUTPUT -j ufw-after-output
+-A OUTPUT -j ufw-after-logging-output
+-A OUTPUT -j ufw-reject-output
+-A OUTPUT -j ufw-track-output
+```
+
+**Interpretação técnica:** nesta recolha posterior, o UFW está ativo; a política por omissão nega ligações de entrada, permite saída e desativa encaminhamento. A única regra de entrada explicitamente listada é `2222/tcp`, para IPv4 e IPv6. As políticas nativas do iptables são coerentes com o UFW: `INPUT DROP` e `OUTPUT ACCEPT`, com chains de processamento geridas pelo UFW.
+
+**Limites desta evidência:** o output confirma o estado no momento da recolha, mas não comprova persistência após reinício, nem que o serviço SSH esteja efetivamente a escutar e acessível em `2222/tcp`. Esses pontos exigem validação separada caso façam parte dos critérios de avaliação.
 
 ---
 
