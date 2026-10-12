@@ -66,7 +66,7 @@ skodji-digital/
 
 **Práticas:** `ufw` · `iptables` · `iptables-save`
 
-**Estado documental:** 🟡 Parcial, com nova evidência publicada. A recolha inicial mostrava UFW inativo; uma verificação posterior no ambiente `BITYJR` (Ubuntu 24.04.5) confirmou UFW ativo, `deny incoming`, `INPUT DROP` e permissão de entrada `2222/tcp` para IPv4/IPv6. Ainda falta validar pontos específicos do enunciado, incluindo a regra de bloqueio de IP e a persistência das regras após reinício.
+**Estado documental:** 🟡 Parcial, com evidências publicadas. No ambiente `BITYJR` (Ubuntu 24.04.5), o UFW está ativo, com `deny incoming`, `INPUT DROP` e permissão de entrada `2222/tcp` para IPv4/IPv6. A regra da porta está guardada em `/etc/ufw/user.rules` e `/etc/ufw/user6.rules`, com `ENABLED=yes`; porém, ainda não foi testada após reinício. O bloqueio do IP de teste `203.0.113.50` não aparece nas regras atuais e ` /etc/iptables/rules.v4` não existe.
 
 📘 [Abrir o trabalho da Sessão 03](sessao-03/README.md)
 
@@ -116,14 +116,14 @@ skodji-digital/
 |---|---|---|
 | 01 | Linux, rede e Nmap | ✅ Documentação e resultados publicados |
 | 02 | Auditoria e logs | 🟡 Rever rastreabilidade da evidência bruta |
-| 03 | UFW e iptables | 🟡 Falta evidência de política final aplicada |
+| 03 | UFW e iptables | 🟡 UFW ativo e config guardada; faltam bloqueio do IP de teste e validação após reinício |
 | 04 | SSH seguro | ✅ Configuração e testes documentados |
 | 05 | Lynis | 🟡 Warning de pacotes vulneráveis permanece |
 | 06 | Mini-CTF defensivo | 🟡 Reprodução local documentada; tentativa TryHackMe separada |
 
 ## Próximas prioridades
 
-1. **Sessão 03:** recolher evidência da regra de bloqueio de IP solicitada e verificar a persistência das regras UFW/iptables após reinício, se o ambiente de laboratório permitir.
+1. **Sessão 03:** configurar e documentar com segurança a regra de bloqueio do IP de teste exigida pelo enunciado; depois, validar a persistência após reinício, se o ambiente de laboratório permitir.
 2. **Sessão 05:** rever o warning `PKGS-7392` e só atualizar o estado depois de uma nova auditoria com evidência.
 3. **Sessão 06:** fazer uma revisão final dos ficheiros obrigatórios, dos links e da distinção entre a reprodução local e a sala TryHackMe.
 
