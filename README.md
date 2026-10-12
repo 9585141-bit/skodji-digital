@@ -66,7 +66,7 @@ skodji-digital/
 
 **Práticas:** `ufw` · `iptables` · `iptables-save`
 
-**Estado documental:** 🟡 Parcial. Os outputs registados mostram UFW inativo e políticas `INPUT`/`OUTPUT` em `ACCEPT` no momento da recolha. A aplicação e a validação final da política defensiva continuam pendentes de evidência; não se declara o hardening concluído.
+**Estado documental:** 🟡 Parcial, com nova evidência publicada. A recolha inicial mostrava UFW inativo; uma verificação posterior no ambiente `BITYJR` (Ubuntu 24.04.5) confirmou UFW ativo, `deny incoming`, `INPUT DROP` e permissão de entrada `2222/tcp` para IPv4/IPv6. Ainda falta validar pontos específicos do enunciado, incluindo a regra de bloqueio de IP e a persistência das regras após reinício.
 
 📘 [Abrir o trabalho da Sessão 03](sessao-03/README.md)
 
@@ -123,7 +123,7 @@ skodji-digital/
 
 ## Próximas prioridades
 
-1. **Sessão 03:** confirmar no ambiente de laboratório correto a aplicação final do UFW/iptables e guardar outputs posteriores reais.
+1. **Sessão 03:** recolher evidência da regra de bloqueio de IP solicitada e verificar a persistência das regras UFW/iptables após reinício, se o ambiente de laboratório permitir.
 2. **Sessão 05:** rever o warning `PKGS-7392` e só atualizar o estado depois de uma nova auditoria com evidência.
 3. **Sessão 06:** fazer uma revisão final dos ficheiros obrigatórios, dos links e da distinção entre a reprodução local e a sala TryHackMe.
 
