@@ -1,6 +1,6 @@
 # Registo de Continuidade — Skodji Digital
 
-**Atualizado:** 12/10/2026  
+**Atualizado:** 13/10/2026  
 **Repositório:** https://github.com/9585141-bit/skodji-digital  
 **Formando indicado nos documentos:** Marcos dos Santos
 
@@ -70,6 +70,10 @@ Documento: [sessao-05/README.md](sessao-05/README.md)
 A reprodução local/adaptação foi executada em Ubuntu 24.04.5/WSL2 e deve continuar claramente separada da tentativa no TryHackMe Linux Agency, que não foi concluída como execução remota. Evidências publicadas: `sshd_config`, `ufw-rules.txt`, `ss.txt`, `nmap.txt`, `updates-before.txt`, `updates-after.txt`, `lynis-final.txt`. Resultado Lynis final documentado: Hardening Index 66, 0 warnings e 49 suggestions; exceção `PKGS-7410` registada. A exposição da porta 22 associada à infraestrutura WSL2 foi assinalada como não resolvida neste laboratório. Próxima melhoria é uma revisão documental/consistência, não repetir o mini-CTF.
 
 Documento: [sessao-06/README.md](sessao-06/README.md)
+
+## BITY TECH LAB — continuidade em 13/10/2026
+
+O estado detalhado do laboratório, recursos do PC, duas distribuições WSL, diretórios inventariados, aviso do disco Hitachi e próximos passos para retoma estão em [BITY-TECH-LAB-ESTADO.md](BITY-TECH-LAB-ESTADO.md). Na próxima sessão, seguir a lista de passos pendentes desse ficheiro. Não repetir inventários já concluídos nem instalar ferramentas antes de verificar o que existe.
 
 ## Alterações recentes relativas à continuidade da Sessão 03
 
